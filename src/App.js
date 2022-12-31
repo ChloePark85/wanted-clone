@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from "./Routes/Home"
 import JobsFeed from "./Routes/JobsFeed"
 import Community from "./Routes/Community"
+import Login from './Routes/Login';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -33,6 +34,7 @@ function App() {
         <Route path="/" exact element={<Home />}/>
         <Route path="/jobsfeed" exact element={<JobsFeed />}/>
         <Route path="/community" exact element={<Community />}/>
+        <Route path="/login" exact element={<Login />}/>
         </Routes>
     </Router>
     </>

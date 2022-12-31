@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { IoIosSearch } from "react-icons/io";
+import { Link } from "react-router-dom";
+import Search from "./Search";
 
 const Base = styled.header`
   position: fixed;
@@ -61,10 +63,6 @@ const MenuButton = styled.button`
   margin-right: 25px;
 `;
 
-const Link = styled.a`
-  text-decoration: none;
-`;
-
 const Logo = styled.div`
   img {
     width: 95px;
@@ -72,27 +70,34 @@ const Logo = styled.div`
   }
 `;
 
-const SignIn = styled.button`
+const SignIn = styled.div`
   background: transparent;
   color: #333333;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   padding: 0;
   border: 0;
   cursor: pointer;
   margin: 15px 0;
 `;
 
-const Employers = styled.button`
+const Employers = styled.div`
   color: rgb(116, 116, 123);
   border: #dddddd 1px solid;
   border-radius: 20px;
-  width: 90px;
-  height: 35px;
+  width: 81px;
+  height: 30px;
   cursor: pointer;
+  padding: 5px 0px;
+  box-sizing: border-box;
+  font-size: 13px;
 `;
 
 function Header() {
+  const [isOpen, setOpen] = useState(false);
+  const handleSearchClick = () => {
+    setOpen(true);
+  };
   return (
     <Base>
       <Navigation>
@@ -105,14 +110,14 @@ function Header() {
                   alt="hamburger"
                 />
               </HamburgerMenu>
-              <Link href="/">
+              <Link to="/">
                 <Logo>
                   <img src="https://ifh.cc/g/580vog.png" alt="logo" />
                 </Logo>
               </Link>
             </Menu>
             <Menu>
-              <Link href="/jobsfeed">
+              <Link to="/jobsfeed">
                 <MenuButton>채용</MenuButton>
               </Link>
               <MenuButton>이벤트</MenuButton>
@@ -125,15 +130,23 @@ function Header() {
               <MenuButton>AI 합격예측</MenuButton>
             </Menu>
             <Menu>
-              <MenuButton style={{ marginRight: "10px" }}>
+              <MenuButton
+                style={{ marginRight: "10px" }}
+                onClick={handleSearchClick}
+              >
                 <IoIosSearch style={{ width: "24px", height: "24px" }} />
+                <Search isOpen={isOpen} />
               </MenuButton>
-              <MenuButton>
-                <SignIn>회원가입/로그인</SignIn>
-              </MenuButton>
-              <MenuButton>
-                <Employers>기업 서비스</Employers>
-              </MenuButton>
+              <Link to="/login">
+                <MenuButton>
+                  <SignIn>회원가입/로그인</SignIn>
+                </MenuButton>
+              </Link>
+              <Link to="https://www.wanted.co.kr/dashboard/welcome">
+                <MenuButton>
+                  <Employers>기업 서비스</Employers>
+                </MenuButton>
+              </Link>
             </Menu>
           </MenuList>
         </MenuListWrapper>
