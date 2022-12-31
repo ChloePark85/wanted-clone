@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { createGlobalStyle } from 'styled-components'
+import reset from 'styled-reset'
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Home from "./Routes/Home"
+import JobsFeed from "./Routes/JobsFeed"
+import Community from "./Routes/Community"
+
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+  a {
+    text-decoration: none;
+    color: black;
+}
+button {
+    border: none;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+}
+html, body {
+  box-sizing: border-box;
+  font-family: 'Noto Sans'
+}
+
+ `
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <GlobalStyle/>
+    <Router>
+      <Routes>
+        <Route path="/" exact element={<Home />}/>
+        <Route path="/jobsfeed" exact element={<JobsFeed />}/>
+        <Route path="/community" exact element={<Community />}/>
+        </Routes>
+    </Router>
+    </>
   );
 }
 
