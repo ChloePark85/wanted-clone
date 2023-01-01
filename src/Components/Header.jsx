@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 import Search from "./Search";
+import SideMenu from "./SideMenu";
 
 const Base = styled.header`
   position: fixed;
@@ -98,17 +99,26 @@ function Header() {
   const handleSearchClick = () => {
     setOpen(true);
   };
+  const [sideOpen, setSideOpen] = useState(false);
+  const SidemenuOpen = () => {
+    setSideOpen((current) => !current);
+  };
+  //   const [menuUnderbar, setMenuUnderbar] = useState(false);
+  //   const UnderbarOn = () => {
+  //     setMenuUnderbar(true)
+  //   }
   return (
     <Base>
       <Navigation>
         <MenuListWrapper>
           <MenuList>
             <Menu>
-              <HamburgerMenu>
+              <HamburgerMenu onMouseOver={SidemenuOpen}>
                 <img
                   src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ficon-menu.png&w=undefined&q=75"
                   alt="hamburger"
                 />
+                <SideMenu isOpen={sideOpen} />
               </HamburgerMenu>
               <Link to="/">
                 <Logo>
@@ -123,7 +133,7 @@ function Header() {
               <MenuButton>이벤트</MenuButton>
               <MenuButton>직군별 연봉</MenuButton>
               <MenuButton>이력서</MenuButton>
-              <Link href="/community">
+              <Link to="/community">
                 <MenuButton>커뮤니티</MenuButton>
               </Link>
               <MenuButton>프리랜서</MenuButton>

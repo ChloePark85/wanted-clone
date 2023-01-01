@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 const Base = styled.footer`
   display: block;
+  padding: 18px 0 65px;
+  background-color: #fff;
+  border-top: 1px solid #ececec;
   box-sizing: border-box;
   width: 100%;
   height: 245px;
   bottom: 0;
-  position: fixed;
-  border-top: #dddddd 1px solid;
 `;
 
 const Container = styled.section`
@@ -32,6 +33,7 @@ const Left = styled.div`
   width: 597px;
   button {
     cursor: pointer;
+    background: white;
   }
 `;
 

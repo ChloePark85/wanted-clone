@@ -3,3 +3,10 @@
 - Header, Footer components 구현
 - Login page 구현
 - Search modal 구현
+- Hamburger modal 구현
+
+## 2023-01-01 진행상황
+- Main Banner 구현
+- Footer component 수정
+- Main page section 구현
+- 채용 page section 구현
