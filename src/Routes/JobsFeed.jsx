@@ -3,6 +3,7 @@ import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import TopBanner from "../Components/TopBanner";
 import styled from "styled-components";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 const LineBanner = styled.div`
   margin: 60px auto;
@@ -83,11 +84,16 @@ const MatchedJobContainer = styled.div`
     letter-spacing: normal;
     text-align: left;
     color: #111;
+    vertical-align: middle;
   }
   .matchedjob-header-text-detail {
     font-size: 18px;
     margin-bottom: 6px;
     text-align: center;
+    align-items: center;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: row;
   }
   .emptymatched-container {
     display: flex;
@@ -245,7 +251,9 @@ function JobsFeed() {
   return (
     <>
       <Header />
-      <TopBanner />
+      <div style={{ paddingTop: "25px" }}>
+        <TopBanner />
+      </div>
       <LineBanner>
         <div class="line-banner">
           <div class="line-banner-banner">
@@ -280,8 +288,12 @@ function JobsFeed() {
                 style={{ width: "114px", marginBottom: "3px" }}
                 alt=""
               />
-              가 제안하는 합격률 높은 포지션
-              <button type="button">?</button>
+              <span>가 제안하는 합격률 높은 포지션</span>
+              <button type="button">
+                <AiOutlineQuestionCircle
+                  style={{ width: "24px", height: "24px", color: "grey" }}
+                />
+              </button>
             </div>
           </h2>
         </div>

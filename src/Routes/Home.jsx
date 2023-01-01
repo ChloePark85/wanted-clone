@@ -5,6 +5,7 @@ import TopBanner from "../Components/TopBanner";
 import styled from "styled-components";
 import { BsChevronDown } from "react-icons/bs";
 import { IoChevronForwardOutline } from "react-icons/io5";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 const ContentList = styled.div`
   position: relative;
@@ -251,13 +252,19 @@ function Home() {
   return (
     <div>
       <Header />
-      <TopBanner />
+      <div style={{ paddingTop: "25px" }}>
+        <TopBanner />
+      </div>
       <ContentList>
         <div class="section-wrapper">
           <div class="title">
             <div class="title-wrapper">
               <span>나에게 필요한 커리어 인사이트</span>
-              <button>?</button>
+              <button>
+                <AiOutlineQuestionCircle
+                  style={{ width: "24px", height: "24px", color: "grey" }}
+                />
+              </button>
             </div>
             <div class="content-category">
               <div class="tag-slide-container">
