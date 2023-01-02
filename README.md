@@ -10,3 +10,7 @@
 - Footer component 수정
 - Main page section 구현
 - 채용 page section 구현
+
+## 2023-01-02 진행상황
+- 채용 page section 구현
+- 

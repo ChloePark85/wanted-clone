@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
 
 const Base = styled.div`
   background-color: #f7f7f7;
@@ -208,6 +209,23 @@ const Footer = styled.div`
 `;
 
 function Login() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  //   console.log(watch());
+  const onValid = (data) => {
+    console.log(data);
+  };
+  //   console.log(formState.errors);
+
+  //   const onSubmit = (data) => {
+  //     // TODO: CALL LOGIN API
+  //     console.log(data);
+  //   };
   return (
     <Base>
       <LoginBox>
@@ -225,8 +243,34 @@ function Login() {
           하나의 계정으로 모두 이용할 수 있습니다.
         </h2>
         <label>이메일</label>
-        <input placeholder="이메일을 입력해주세요." type="text" />
-        <button>이메일로 계속하기</button>
+        <form
+          onSubmit={handleSubmit(onValid)}
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          <input
+            placeholder="이메일을 입력해주세요."
+            {...register("email", {
+              required: true,
+              pattern: {
+                value:
+                  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+                message: "올바른 이메일을 입력해주세요.",
+              },
+            })}
+          />
+          <span
+            style={{
+              color: "#fe415c",
+              fontSize: "13px",
+              marginTop: "2px",
+              lineHeight: "18px",
+              textAlign: "left",
+            }}
+          >
+            {errors?.email?.message}
+          </span>
+          <button>이메일로 계속하기</button>
+        </form>
         <p>또는</p>
         <SocialLoginBox>
           <button>

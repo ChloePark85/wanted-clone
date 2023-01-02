@@ -13,7 +13,7 @@ const Base = styled.header`
   text-align: center;
   box-shadow: rgb(0 0 0 / 0%) 0px 1px 0px 0px;
   width: 100%;
-  height: 62px;
+  height: 55px;
   z-index: 10;
   border-bottom: #dddddd 1px solid;
 `;
@@ -36,7 +36,7 @@ const MenuList = styled.ul`
 const Menu = styled.li`
   display: flex;
   align-items: center;
-  height: 62px;
+  height: 60px;
   flex-shrink: 0;
 
   &:not(:first-child) {
@@ -62,6 +62,15 @@ const MenuButton = styled.button`
   border: none;
   background: none;
   margin-right: 25px;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 50px;
+  &:hover {
+    box-shadow: inset 0 -2px lightgrey;
+  }
+  &:active {
+    box-shadow: inset 0 -2px #258bf7;
+  }
 `;
 
 const Logo = styled.div`
@@ -103,10 +112,12 @@ function Header() {
   const SidemenuOpen = () => {
     setSideOpen((current) => !current);
   };
-  //   const [menuUnderbar, setMenuUnderbar] = useState(false);
-  //   const UnderbarOn = () => {
-  //     setMenuUnderbar(true)
-  //   }
+
+  const [menuUnderbar, setMenuUnderbar] = useState(false);
+  const underbarToggle = (e) => {
+    setMenuUnderbar(true);
+    console.log(e.target.value);
+  };
   return (
     <Base>
       <Navigation>
@@ -128,7 +139,12 @@ function Header() {
             </Menu>
             <Menu>
               <Link to="/jobsfeed">
-                <MenuButton>채용</MenuButton>
+                <MenuButton
+                  onClick={underbarToggle}
+                  className={menuUnderbar === true ? "selected" : null}
+                >
+                  채용
+                </MenuButton>
               </Link>
               <MenuButton>이벤트</MenuButton>
               <MenuButton>직군별 연봉</MenuButton>

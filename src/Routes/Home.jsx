@@ -72,35 +72,6 @@ const ContentList = styled.div`
   }
 `;
 
-const CreatorBanner = styled.div`
-  .banner-card {
-    background: #fff;
-    border: 1px solid #ececec;
-    box-shadow: 4px 4px 15px rgb(0 0 0 / 5%);
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    grid-gap: 27px;
-    gap: 27px;
-    position: relative;
-    max-width: 1060px;
-    margin: 0 auto;
-    padding-bottom: 60px;
-    box-sizing: border-box;
-  }
-  .banner-text {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-  .recommend-image {
-    width: 112px;
-    vertical-align: middle;
-  }
-`;
-
 const LineBanner = styled.div`
   .line-banner-box {
     margin: 60px auto;
@@ -135,6 +106,8 @@ const LineBanner = styled.div`
 const EventList = styled.div`
   .event-list-container {
     margin: 0 auto;
+    padding: 60px 0;
+    max-width: 1060px;
   }
   .event-list-title {
     display: flex;
@@ -282,23 +255,7 @@ function Home() {
           </div>
         </div>
       </ContentList>
-      <CreatorBanner>
-        <div class="banner-card">
-          <div class="banner-text">
-            <p>
-              즐겨보는
-              <span>크리에이터의</span>
-              글도 추천하고 싶다면?
-            </p>
-            <p style={{ color: "#36f" }}>크리에이터 추천하기</p>
-          </div>
-          <img
-            class="recommend-image"
-            src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fimage.wanted.co.kr%2Fuserweb%2Fcareerhome%2Fcreator-application.png&w=224&q=90"
-            alt="recommend"
-          />
-        </div>
-      </CreatorBanner>
+
       <LineBanner>
         <div class="line-banner-box">
           <div class="line-banner-text">
@@ -322,7 +279,7 @@ function Home() {
                   flexShrink: "0",
                 }}
               >
-                <path d="m11.955 9-5.978 5.977a.563.563 0 0 0 .796.796l6.375-6.375a.563.563 0 0 0 0-.796L6.773 2.227a.562.562 0 1 0-.796.796L11.955 9z"></path>
+                <path d="m6.045 9 5.978-5.977a.563.563 0 1 0-.796-.796L4.852 8.602a.562.562 0 0 0 0 .796l6.375 6.375a.563.563 0 0 0 .796-.796L6.045 9z"></path>
               </svg>
             </button>
             <div class="event-title">

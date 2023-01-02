@@ -247,6 +247,87 @@ const ShortcutContainer = styled.div`
   }
 `;
 
+const CompanySection = styled.div`
+  .company-list-container {
+    margin: 0 auto;
+    padding: 60px 0;
+    max-width: 1060px;
+  }
+  .company-list-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    grid-gap: 8px;
+    gap: 8px;
+    box-sizing: border-box;
+  }
+  .company-title {
+    font-size: 22px;
+    text-align: center;
+  }
+  .arrow-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e1e2e3;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 5%);
+    font-size: 16px;
+    color: #767676;
+    cursor: pointer;
+  }
+`;
+
+const FloatingButton = styled.div`
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  box-shadow: rgb(36 36 36 / 15%) 0px 20px 30px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(5, 5, 5);
+  position: sticky;
+  left: 1367px;
+  bottom: 30px;
+
+  .floatingbutton-data {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(5, 5, 5);
+    display: inline-flex;
+    justify-content: center;
+    margin: 0px;
+    cursor: pointer;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding: 0px;
+  }
+  .floatingbutton-icon {
+    position: absolute;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+  }
+  .floatingbutton-icon > svg {
+    width: 24px;
+    height: 24px;
+    max-height: 100%;
+  }
+`;
+
 function JobsFeed() {
   return (
     <>
@@ -343,7 +424,237 @@ function JobsFeed() {
           </li>
         </ul>
       </ShortcutContainer>
+      <CompanySection>
+        <div class="company-list-container">
+          <div class="company-list-title">
+            <button type="button" class="arrow-button">
+              <svg
+                viewBox="0 0 18 18"
+                style={{
+                  width: "1em",
+                  height: "1em",
+                  display: "inline-block",
+                  fill: "currentColor",
+                  flexShrink: "0",
+                }}
+              >
+                <path d="m6.045 9 5.978-5.977a.563.563 0 1 0-.796-.796L4.852 8.602a.562.562 0 0 0 0 .796l6.375 6.375a.563.563 0 0 0 .796-.796L6.045 9z"></path>
+              </svg>
+            </button>
+            <div class="company-title">
+              <p
+                style={{
+                  fontSize: "22px",
+                  lineHeight: "1.33",
+                  fontWeight: "700",
+                  color: "#333",
+                }}
+              >
+                #재택근무 회사를 소개합니다
+              </p>
+              <p
+                style={{
+                  margin: "5px 0 0",
+                  fontSize: "13px",
+                  fontWeight: "500",
+                  lineHeight: "normal",
+                  verticalAlign: "middle",
+                  color: "#767676",
+                }}
+              >
+                포지션으로 더보기
+              </p>
+            </div>
+            <button type="button" class="arrow-button">
+              <svg
+                viewBox="0 0 18 18"
+                style={{
+                  width: "1em",
+                  height: "1em",
+                  display: "inline-block",
+                  fill: "currentColor",
+                  flexShrink: "0",
+                }}
+              >
+                <path d="m11.955 9-5.978 5.977a.563.563 0 0 0 .796.796l6.375-6.375a.563.563 0 0 0 0-.796L6.773 2.227a.562.562 0 1 0-.796.796L11.955 9z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </CompanySection>
+      <CompanySection>
+        <div class="company-list-container">
+          <div class="company-list-title">
+            <button type="button" class="arrow-button">
+              <svg
+                viewBox="0 0 18 18"
+                style={{
+                  width: "1em",
+                  height: "1em",
+                  display: "inline-block",
+                  fill: "currentColor",
+                  flexShrink: "0",
+                }}
+              >
+                <path d="m6.045 9 5.978-5.977a.563.563 0 1 0-.796-.796L4.852 8.602a.562.562 0 0 0 0 .796l6.375 6.375a.563.563 0 0 0 .796-.796L6.045 9z"></path>
+              </svg>
+            </button>
+            <div class="company-title">
+              <p
+                style={{
+                  fontSize: "22px",
+                  lineHeight: "1.33",
+                  fontWeight: "700",
+                  color: "#333",
+                }}
+              >
+                #연봉이 최고의 복지 회사를 소개합니다
+              </p>
+              <p
+                style={{
+                  margin: "5px 0 0",
+                  fontSize: "13px",
+                  fontWeight: "500",
+                  lineHeight: "normal",
+                  verticalAlign: "middle",
+                  color: "#767676",
+                }}
+              >
+                포지션으로 더보기
+              </p>
+            </div>
+            <button type="button" class="arrow-button">
+              <svg
+                viewBox="0 0 18 18"
+                style={{
+                  width: "1em",
+                  height: "1em",
+                  display: "inline-block",
+                  fill: "currentColor",
+                  flexShrink: "0",
+                }}
+              >
+                <path d="m11.955 9-5.978 5.977a.563.563 0 0 0 .796.796l6.375-6.375a.563.563 0 0 0 0-.796L6.773 2.227a.562.562 0 1 0-.796.796L11.955 9z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </CompanySection>
+      <div class="divider-container" style={{ margin: "0 auto" }}>
+        <hr
+          style={{
+            height: "1px",
+            margin: "0",
+            border: "none",
+            backgroundColor: "#ececec",
+            boxSizing: "content-box",
+            maxWidth: "1060px",
+            display: "block",
+            marginBlockStart: "0.5em",
+            marginBlockEnd: "0.5em",
+            marginInlineStart: "auto",
+            marginInlineEnd: "auto",
+          }}
+        />
+      </div>
+      <CompanySection>
+        <div class="company-list-container">
+          <div class="company-list-title">
+            <button type="button" class="arrow-button">
+              <svg
+                viewBox="0 0 18 18"
+                style={{
+                  width: "1em",
+                  height: "1em",
+                  display: "inline-block",
+                  fill: "currentColor",
+                  flexShrink: "0",
+                }}
+              >
+                <path d="m6.045 9 5.978-5.977a.563.563 0 1 0-.796-.796L4.852 8.602a.562.562 0 0 0 0 .796l6.375 6.375a.563.563 0 0 0 .796-.796L6.045 9z"></path>
+              </svg>
+            </button>
+            <div class="company-title">
+              <p
+                style={{
+                  fontSize: "22px",
+                  lineHeight: "1.33",
+                  fontWeight: "700",
+                  color: "#333",
+                }}
+              >
+                테마로 모아보는 요즘 채용
+              </p>
+            </div>
+            <button type="button" class="arrow-button">
+              <svg
+                viewBox="0 0 18 18"
+                style={{
+                  width: "1em",
+                  height: "1em",
+                  display: "inline-block",
+                  fill: "currentColor",
+                  flexShrink: "0",
+                }}
+              >
+                <path d="m11.955 9-5.978 5.977a.563.563 0 0 0 .796.796l6.375-6.375a.563.563 0 0 0 0-.796L6.773 2.227a.562.562 0 1 0-.796.796L11.955 9z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </CompanySection>
+      <div class="divider-container" style={{ margin: "0 auto" }}>
+        <hr
+          style={{
+            height: "1px",
+            margin: "0",
+            border: "none",
+            backgroundColor: "#ececec",
+            boxSizing: "content-box",
+            maxWidth: "1060px",
+            display: "block",
+            marginBlockStart: "0.5em",
+            marginBlockEnd: "0.5em",
+            marginInlineStart: "auto",
+            marginInlineEnd: "auto",
+          }}
+        />
+      </div>
+      <CompanySection>
+        <div class="company-list-container">
+          <div class="company-list-title" style={{ justifyContent: "center" }}>
+            <div class="company-title">
+              <p
+                style={{
+                  fontSize: "22px",
+                  lineHeight: "1.33",
+                  fontWeight: "700",
+                  color: "#333",
+                }}
+              >
+                요즘 뜨는 포지션
+              </p>
+            </div>
+          </div>
+        </div>
+      </CompanySection>
+
       <Footer />
+      <FloatingButton>
+        <button class="floatingbutton-data">
+          <div class="floatingbutton-icon">
+            <svg>
+              <path
+                d="M10,18 L6,22 L6,18 L10,18 Z M17,6 C19.7614237,6 22,8.23857625 22,11 C22,13.7614237 19.7614237,16 17,16 L17,16 L7,16 C4.23857625,16 2,13.7614237 2,11 C2,8.23857625 4.23857625,6 7,6 L7,6 Z"
+                transform="translate(12.000000, 14.000000) scale(-1, 1) translate(-12.000000, -14.000000)"
+                style={{
+                  fill: "rgb(255,255,255",
+                }}
+              ></path>
+            </svg>
+          </div>
+        </button>
+      </FloatingButton>
     </>
   );
 }

@@ -20,7 +20,7 @@ button {
 }
 html, body {
   box-sizing: border-box;
-  font-family: 'Noto Sans'
+  font-family: Pretendard,Pretendard JP,Pretendard Std,-apple-system,system-ui,BlinkMacSystemFont,Roboto,Segoe UI,Helvetica,Arial,Apple SD Gothic Neo,Nanum Gothic,Malgun Gothic,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,sans-serif;
 }
  `
 
