@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const Base = styled.div`
   background-color: #f7f7f7;
@@ -213,14 +214,31 @@ function Login() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, ...formState },
   } = useForm();
 
-  //   console.log(watch());
   const onValid = (data) => {
     console.log(data);
   };
-  //   console.log(formState.errors);
+
+  const [isActive, setIsActive] = useState(false);
+  const watchAll = Object.values(watch());
+
+  useEffect(() => {
+    if (watchAll.every((el) => el)) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [watchAll]);
+
+  useEffect(() => {
+    if (watch("email") !== "" && errors?.email === "") {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [watch()]);
 
   //   const onSubmit = (data) => {
   //     // TODO: CALL LOGIN API
@@ -269,7 +287,11 @@ function Login() {
           >
             {errors?.email?.message}
           </span>
-          <button>이메일로 계속하기</button>
+          <Link to="">
+            <button style={{ backgroundColor: isActive ? "#36f" : "#f2f4f7" }}>
+              이메일로 계속하기
+            </button>
+          </Link>
         </form>
         <p>또는</p>
         <SocialLoginBox>
