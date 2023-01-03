@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
 
 const Base = styled.div`
   background-color: #f7f7f7;
@@ -201,6 +202,17 @@ const CheckboxSection = styled.div`
 `;
 
 function Signup() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  //   console.log(watch());
+  const onValid = (data) => {
+    console.log(data);
+  };
   return (
     <Base>
       <SignupBox>
@@ -216,7 +228,7 @@ function Signup() {
           <div class="empty"></div>
         </TitleSection>
         <FormSection>
-          <form>
+          <form onSubmit={handleSubmit(onValid)}>
             <div class="form-label">
               <label>이메일</label>
             </div>
@@ -224,7 +236,11 @@ function Signup() {
             <div class="form-label">
               <label>이름</label>
             </div>
-            <input type="text" placeholder="이름을 입력해주세요." />
+            <input
+              type="text"
+              placeholder="이름을 입력해주세요."
+              {...register("name", { required: true })}
+            />
             <div class="form-label">
               <label>휴대폰 번호</label>
             </div>
@@ -240,6 +256,7 @@ function Signup() {
                 type="number"
                 style={{ width: "229px" }}
                 placeholder="(예시) 01013245768"
+                {...register("phonenumber", { required: true })}
               />
               <button class="request-verification" disabled>
                 인증번호 받기
@@ -248,15 +265,21 @@ function Signup() {
             <input
               type="number"
               placeholder="인증번호를 입력해주세요."
+              {...register("verficationnumber", { required: true })}
               disabled
             />
             <div class="form-label">
               <label>비밀번호</label>
             </div>
-            <input type="number" placeholder="비밀번호를 입력해주세요." />
+            <input
+              type="number"
+              placeholder="비밀번호를 입력해주세요."
+              {...register("pw", { required: true })}
+            />
             <input
               type="number"
               placeholder="비밀번호를 다시 한번 입력해주세요."
+              {...register("pwagain", { required: true })}
             />
             <p>
               영문 대소문자, 숫자, 특수문자를 3가지 이상으로 조합해 8자 이상

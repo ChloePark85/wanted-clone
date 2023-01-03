@@ -214,31 +214,14 @@ function Login() {
     register,
     handleSubmit,
     watch,
-    formState: { errors, ...formState },
+    formState: { errors },
   } = useForm();
 
+  //   console.log(watch());
   const onValid = (data) => {
     console.log(data);
   };
-
-  const [isActive, setIsActive] = useState(false);
-  const watchAll = Object.values(watch());
-
-  useEffect(() => {
-    if (watchAll.every((el) => el)) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  }, [watchAll]);
-
-  useEffect(() => {
-    if (watch("email") !== "" && errors?.email === "") {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  }, [watch()]);
+  //   console.log(formState.errors);
 
   //   const onSubmit = (data) => {
   //     // TODO: CALL LOGIN API
@@ -288,7 +271,7 @@ function Login() {
             {errors?.email?.message}
           </span>
           <Link to="">
-            <button style={{ backgroundColor: isActive ? "#36f" : "#f2f4f7" }}>
+            <button style={{ backgroundColor: "#f2f4f7" }}>
               이메일로 계속하기
             </button>
           </Link>

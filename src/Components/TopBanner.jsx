@@ -93,19 +93,24 @@ const StyledSlider = styled(Slider)`
 `;
 
 function TopBanner() {
-  const [bannerData, setBannerData] = useState([]);
+  //   const [bannerData, setBannerData] = useState([]);
 
-  useEffect(() => {
-    getBannerData();
-  }, []);
+  //   useEffect(() => {
+  //     getBannerData();
+  //   }, []);
 
-  const getBannerData = async () => {
-    const result = await axios({
-      method: "GET",
-      url: "https://seolki.shop/banners/main",
-    });
-    setBannerData(result.data.bannerImgs);
-  };
+  //   const getBannerData = async () => {
+  //     const result = await axios({
+  //       method: "GET",
+  //       url: "https://prod.seolki.shop/banners/main",
+  //     }).then((response) => {
+  //       console.log(response);
+  //     });
+  //     setBannerData(result.data.bannerImgs);
+  //   };
+  axios
+    .get("https://prod.seolki.shop/banners/main")
+    .then((Response) => console.log(Response.data));
 
   const settings = {
     infinite: true,
@@ -123,21 +128,21 @@ function TopBanner() {
     <Base>
       <Container>
         <StyledSlider {...settings}>
-          {bannerData.map((banner) => (
+          {/* {bannerData.map((banner) => (
             <div className="slider">
-              <a key={banner.id}>
+              <a key={banner.bannerIdx}>
                 <img
-                  src={banner.url}
-                  alt={banner.id}
+                  src={banner.bannerImgUrl}
+                  alt={banner.bannerTitle}
                   className="banner-image"
                 />
               </a>
             </div>
-          ))}
+          ))} */}
           {/* 
             <div class="slick-track"> */}
 
-          <img
+          {/* <img
             src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fbanners%2F1923%2Fddbcd144.jpg&w=1060&q=100"
             alt=""
             class="slick-slide"
@@ -156,7 +161,7 @@ function TopBanner() {
             src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fbanners%2F1897%2Fff68e2df.jpg&w=1060&q=100"
             alt=""
             class="slick-slide"
-          />
+          /> */}
 
           {/* </div>
           </div> */}

@@ -13,5 +13,10 @@
 
 ## 2023-01-02 진행상황
 - 채용 page section 구현
-- React-hook-form을 사용해 validation 구현
-- validation 검증되었을 때 버튼색 바뀌게 하는 것에 어려움을 겪음
+- React-hook-form을 사용해 validation 구현(처음에는 되다가 에러 발생)
+- validation 검증되었을 때 버튼색 바뀌게 하는 것 미해결
+- 회원가입 페이지 구현
+
+## 2023-01-03 진행상황
+- 회원가입/로그인 페이지 구현
+- api 디렉토리 추가
