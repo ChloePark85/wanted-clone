@@ -42,6 +42,9 @@ const Menu = styled.li`
   &:not(:first-child) {
     margin-left: 85px;
   }
+  .blue-line {
+    box-shadow: inset 0 -2px #258bf7;
+  }
 `;
 
 const HamburgerMenu = styled.button`
@@ -69,6 +72,9 @@ const MenuButton = styled.button`
     box-shadow: inset 0 -2px lightgrey;
   }
   &:active {
+    box-shadow: inset 0 -2px #258bf7;
+  }
+  .blue-line {
     box-shadow: inset 0 -2px #258bf7;
   }
 `;
@@ -113,10 +119,9 @@ function Header() {
     setSideOpen((current) => !current);
   };
 
-  const [menuUnderbar, setMenuUnderbar] = useState(false);
-  const underbarToggle = (e) => {
-    setMenuUnderbar(true);
-    console.log(e.target.value);
+  const [activeButton, setActiveButton] = useState(null);
+  const handleButtonClick = (button) => {
+    setActiveButton(button);
   };
   return (
     <Base>
@@ -137,23 +142,38 @@ function Header() {
                 </Logo>
               </Link>
             </Menu>
+
             <Menu>
               <Link to="/jobsfeed">
-                <MenuButton
-                  onClick={underbarToggle}
-                  className={menuUnderbar === true ? "selected" : null}
-                >
+                <MenuButton onClick={() => handleButtonClick("button1")}>
                   채용
                 </MenuButton>
               </Link>
-              <MenuButton>이벤트</MenuButton>
-              <MenuButton>직군별 연봉</MenuButton>
-              <MenuButton>이력서</MenuButton>
-              <Link to="/community">
-                <MenuButton>커뮤니티</MenuButton>
-              </Link>
-              <MenuButton>프리랜서</MenuButton>
-              <MenuButton>AI 합격예측</MenuButton>
+              <div>
+                <div className="menu-buttons">
+                  <MenuButton onClick={() => handleButtonClick("button2")}>
+                    이벤트
+                  </MenuButton>
+                  <MenuButton onClick={() => handleButtonClick("button3")}>
+                    직군별 연봉
+                  </MenuButton>
+                  <MenuButton onClick={() => handleButtonClick("button4")}>
+                    이력서
+                  </MenuButton>
+                  <Link to="/community">
+                    <MenuButton onClick={() => handleButtonClick("button5")}>
+                      커뮤니티
+                    </MenuButton>
+                  </Link>
+                  <MenuButton onClick={() => handleButtonClick("button6")}>
+                    프리랜서
+                  </MenuButton>
+                  <MenuButton onClick={() => handleButtonClick("button7")}>
+                    AI 합격예측
+                  </MenuButton>
+                </div>
+                {activeButton && <div className="blue-line" />}
+              </div>
             </Menu>
             <Menu>
               <MenuButton
