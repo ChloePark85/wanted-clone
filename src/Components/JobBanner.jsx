@@ -44,13 +44,13 @@ const StyledSlider = styled(Slider)`
     height: 300px;
     position: relative;
     display: block;
-    /* float: left; */
+    float: left;
     min-height: 1px;
     border-radius: 20px;
   }
   .slick-prev::before,
   .slick-next::before {
-    opacity: 0;
+    opacity: 1;
     display: none;
   }
   .slick-prev {
@@ -92,7 +92,7 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
-function TopBanner() {
+function JobBanner() {
   const [bannerData, setBannerData] = useState([]);
 
   useEffect(() => {
@@ -102,7 +102,7 @@ function TopBanner() {
   const getBannerData = async () => {
     const result = await axios({
       method: "GET",
-      url: "https://prod.seolki.shop/banners/main",
+      url: "https://prod.seolki.shop/banners/job",
     });
     setBannerData(result.data.result);
     console.log(result);
@@ -111,7 +111,7 @@ function TopBanner() {
   const settings = {
     infinite: true,
     slidesToshow: 3,
-    speed: 600,
+    speed: 500,
     autoplay: true,
     dots: false,
     arrows: true,
@@ -127,7 +127,7 @@ function TopBanner() {
           {bannerData.length > 0 &&
             bannerData.map((banner) => (
               <div class="slick-list">
-                <div className="slick-slide">
+                <div className="slick-slide" key={banner.bannerIdx}>
                   <img
                     key={banner.bannerIdx}
                     src={banner.bannerImgUrl}
@@ -142,4 +142,4 @@ function TopBanner() {
   );
 }
 
-export default TopBanner;
+export default JobBanner;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import TopBanner from "../Components/TopBanner";
@@ -6,8 +6,14 @@ import styled from "styled-components";
 import { BsChevronDown } from "react-icons/bs";
 import { IoChevronForwardOutline } from "react-icons/io5";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
+import CareerCategory from "../Components/CareerCategory";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import axios from "axios";
 
 const ContentList = styled.div`
+  margin: 0 auto;
   position: relative;
   padding: 60px 0px;
   .section-wrapper {
@@ -27,6 +33,7 @@ const ContentList = styled.div`
   }
 
   .content-category {
+    margin: 0 auto;
     position: relative;
   }
   .tag-slide-container {
@@ -37,6 +44,69 @@ const ContentList = styled.div`
     margin: 20px 0;
     grid-gap: 8px;
     gap: 8px;
+  }
+  .tag-slide {
+    margin: 0 auto;
+    max-width: calc(100%-40px -8px);
+    position: relative;
+    display: flex;
+  }
+  .tag-slide-grid {
+    grid-gap: 8px;
+    gap: 8px;
+    display: flex;
+    padding-bottom: 0.5px;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior: contain;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  .tag-button {
+    display: flex;
+    padding: 9px 22px;
+    font-weight: 600;
+    line-height: 146.7%;
+    flex-shrink: 0;
+    color: #888;
+    outline: none;
+    scroll-snap-align: start;
+    /* width: 85px; */
+    height: 40px;
+    position: relative;
+    background-color: #fff;
+    border-color: #ececec;
+    border: 1px solid #ececec;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    min-width: 64px;
+    box-sizing: border-box;
+    border-radius: 25px;
+    cursor: pointer;
+    &:hover {
+      background-color: #ececec;
+    }
+    > span {
+      width: 100%;
+      line-height: 146.7%;
+      cursor: pointer;
+    }
+  }
+  .tag-open-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ececec;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 5%);
+    border-radius: 4px;
+    color: #939393;
+    background-color: #fff;
+    outline: none;
+    height: 38.5px;
+    width: 38px;
   }
   .content-more {
     display: flex;
@@ -222,6 +292,10 @@ const RecruitingSection = styled.div`
 `;
 
 function Home() {
+  const [isOpen, setOpen] = useState(false);
+  const handleTagClick = () => {
+    setOpen(true);
+  };
   return (
     <div>
       <Header />
@@ -241,7 +315,83 @@ function Home() {
             </div>
             <div class="content-category">
               <div class="tag-slide-container">
-                <div class="tag-slide"></div>
+                <div class="tag-slide">
+                  <div class="tag-slide-grid">
+                    <button class="tag-button" type="button">
+                      <span>리더십</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>커리어고민</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>인간관계</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>취업/이직</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>라이프스타일</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>조직문화</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>IT/기술</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>회사생활</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>HR</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>디자인</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>마케팅</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>브랜딩</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>개발</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>서비스기획</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>MD</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>경영전략</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>UX/UI</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>데이터</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>콘텐츠 제작</span>
+                    </button>
+                    <button class="tag-button" type="button">
+                      <span>노무</span>
+                    </button>
+                  </div>
+                  <button
+                    class="tag-open-button"
+                    type="button"
+                    onClick={handleTagClick}
+                  >
+                    <svg style={{ width: "16px", height: "3px" }}>
+                      <path
+                        d="M2 0C2.828 0 3.5 0.672 3.5 1.5C3.5 2.328 2.828 3 2 3C1.172 3 0.5 2.328 0.5 1.5C0.5 0.672 1.172 0 2 0ZM8 0C8.828 0 9.5 0.672 9.5 1.5C9.5 2.328 8.828 3 8 3C7.172 3 6.5 2.328 6.5 1.5C6.5 0.672 7.172 0 8 0ZM14 0C14.828 0 15.5 0.672 15.5 1.5C15.5 2.328 14.828 3 14 3C13.172 3 12.5 2.328 12.5 1.5C12.5 0.672 13.172 0 14 0Z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                    <CareerCategory isOpen={isOpen} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>

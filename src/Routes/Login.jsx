@@ -217,7 +217,7 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  //   console.log(watch());
+  console.log(watch());
   const onValid = (data) => {
     console.log(data);
   };
@@ -360,13 +360,7 @@ function Login() {
           style={{ display: "flex", width: "100%", justifyContent: "center" }}
         >
           <select>
-            <option>
-              <img
-                src="https://static.wanted.co.kr/images/wantedoneid/ico_KR.svg"
-                alt="flag"
-              />
-              한국어
-            </option>
+            <option>한국어</option>
             <option>일본어</option>
             <option>English</option>
           </select>

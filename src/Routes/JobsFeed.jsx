@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-import TopBanner from "../Components/TopBanner";
+import JobBanner from "../Components/TopBanner";
 import styled from "styled-components";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 
@@ -333,7 +333,7 @@ function JobsFeed() {
     <>
       <Header />
       <div style={{ paddingTop: "25px" }}>
-        <TopBanner />
+        <JobBanner />
       </div>
       <LineBanner>
         <div class="line-banner">
