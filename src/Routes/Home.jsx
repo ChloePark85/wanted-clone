@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import TopBanner from "../Components/TopBanner";
 import styled from "styled-components";
 import { BsChevronDown } from "react-icons/bs";
-import { IoChevronForwardOutline } from "react-icons/io5";
+import { IoAlertCircleSharp, IoChevronForwardOutline } from "react-icons/io5";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import CareerCategory from "../Components/CareerCategory";
 import Slider from "react-slick";
@@ -296,6 +296,21 @@ function Home() {
   const handleTagClick = () => {
     setOpen(true);
   };
+  const [articleData, setArticleData] = useState([]);
+
+  useEffect(() => {
+    getArticleDataByInterest();
+  }, []);
+
+  const getArticleDataByInterest = async () => {
+    const result = await axios({
+      method: "GET",
+      url: "https://prod.seolki.shop/home/insight?interestIdx=2",
+    });
+    setArticleData(result.data.result);
+    console.log(result);
+  };
+
   return (
     <div>
       <Header />
@@ -395,6 +410,25 @@ function Home() {
               </div>
             </div>
           </div>
+          <ul
+            style={{
+              width: "100%",
+              marginBottom: "50px",
+              display: "flex",
+              flexWrap: "wrap",
+              listStyleType: "none",
+              gridGap: "32px 20px",
+              gap: "32px 20px",
+              margin: "0 auto",
+            }}
+          >
+            {articleData &&
+              articleData.map((article) => (
+                <div key={article.homeArticleIdx}>
+                  <img src={article.articleImg} alt="article" />
+                </div>
+              ))}
+          </ul>
           <div class="content-more">
             <button class="content-more-button">
               <span class="content-more-button-label">

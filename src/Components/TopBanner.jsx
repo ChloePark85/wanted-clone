@@ -31,14 +31,6 @@ const StyledSlider = styled(Slider)`
     margin: 0;
   }
 
-  .slick-track {
-    /* width: 8928px;
-    opacity: 1;
-    position: relative;
-    left: 0;
-    top: 0;
-    display: block; */
-  }
   .slick-slide {
     width: 1060px;
     height: 300px;

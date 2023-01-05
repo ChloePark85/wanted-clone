@@ -7,6 +7,7 @@ import Community from "./Routes/Community"
 import Login from './Routes/Login';
 import Signup from './Routes/Signup';
 import Password from './Routes/Password';
+import JobList from './Routes/JobList';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Home />}/>
         <Route path="/jobsfeed" exact element={<JobsFeed />}/>
+        <Route path="/joblist" exact element={<JobList />}/>
         <Route path="/community" exact element={<Community />}/>
         <Route path="/login" exact element={<Login />}/>
         <Route path="/login/:id" exact element={<Password />}/>
