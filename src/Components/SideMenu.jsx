@@ -8,6 +8,13 @@ const PositionContainer = styled.div`
   row-gap: 25px;
   font-size: 13px;
   font-weight: 600;
+  p {
+    cursor: pointer;
+    &:hover {
+      color: #37f;
+      background-color: #ececec;
+    }
+  }
 `;
 
 function SideMenu({ isOpen }) {

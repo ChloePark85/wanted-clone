@@ -38,3 +38,4 @@
 - useEffect를 이용해 value가 입력되면 버튼 활성화하도록 구현
 - signup > position > interest tag 선택 페이지 구현
 - user state 관리를 위해 recoil 설치
+- 비밀번호 입력 페이지 구현

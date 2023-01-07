@@ -11,6 +11,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/user";
 
 const ContentList = styled.div`
   margin: 0 auto;

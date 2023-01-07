@@ -230,7 +230,7 @@ function Login() {
       method: "GET",
       url: "https://prod.seolki.shop/users/sign-up",
       // headers: { "Content-Type": "application/json" },
-      data: { email: email },
+      // data: { email: email },
       // dataType: "json",
     });
     setCheckEmail(result.data.result);

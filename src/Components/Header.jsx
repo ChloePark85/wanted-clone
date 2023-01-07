@@ -4,6 +4,8 @@ import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 import SideMenu from "./SideMenu";
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/user";
 
 const Base = styled.header`
   position: fixed;
@@ -110,6 +112,7 @@ const Employers = styled.div`
 `;
 
 function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(userState.isLogin);
   const [isOpen, setOpen] = useState(false);
   const handleSearchClick = () => {
     setOpen(true);
@@ -183,16 +186,22 @@ function Header() {
                 <IoIosSearch style={{ width: "24px", height: "24px" }} />
                 <Search isOpen={isOpen} />
               </MenuButton>
-              <Link to="/login">
-                <MenuButton>
-                  <SignIn>회원가입/로그인</SignIn>
-                </MenuButton>
-              </Link>
-              <Link to="https://www.wanted.co.kr/dashboard/welcome">
-                <MenuButton>
-                  <Employers>기업 서비스</Employers>
-                </MenuButton>
-              </Link>
+              {isLoggedIn ? (
+                <Link to="/mypage">
+                  <MenuButton>
+                    <SignIn>마이페이지</SignIn>
+                  </MenuButton>
+                </Link>
+              ) : (
+                <Link to="/login">
+                  <MenuButton>
+                    <SignIn>회원가입/로그인</SignIn>
+                  </MenuButton>
+                </Link>
+              )}
+              <MenuButton>
+                <Employers>기업 서비스</Employers>
+              </MenuButton>
             </Menu>
           </MenuList>
         </MenuListWrapper>
