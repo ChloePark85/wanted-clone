@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Password from "./Password";
+import Signup from "./Signup";
 
 const Base = styled.div`
   background-color: #f7f7f7;
@@ -76,7 +79,7 @@ const LoginBox = styled.div`
     margin: 0em;
   }
   button {
-    background-color: #f2f4f7;
+    /* background-color: #f2f4f7; */
     color: #ccc;
     border: none;
     cursor: default;
@@ -221,13 +224,26 @@ function Login() {
   const onValid = (data) => {
     console.log(data);
   };
-  //   console.log(formState.errors);
+  const [checkEmail, setCheckEmail] = useState();
+  const handleLogin = async (email) => {
+    const result = await axios({
+      method: "GET",
+      url: "https://prod.seolki.shop/users/sign-up",
+      // headers: { "Content-Type": "application/json" },
+      data: { email: email },
+      // dataType: "json",
+    });
+    setCheckEmail(result.data.result);
+    console.log(checkEmail);
+    // axios
+    //   .get("https://prod.seolki.shop/users/sign-up")
+    //   .then((res) => {
+    //     setResult(res.data.result);
+    //     console.log(result);
+    //   })
+    //   .catch((err) => console.log(err));
+  };
 
-  //   const onSubmit = (data) => {
-  //     // TODO: CALL LOGIN API
-  //     console.log(data);
-  //   };
-  // add calling login api code
   return (
     <Base>
       <LoginBox>
@@ -272,8 +288,12 @@ function Login() {
             {errors?.email?.message}
           </span>
           <Link to="">
-            <button style={{ backgroundColor: "#f2f4f7" }}>
+            <button
+              style={{ backgroundColor: errors.email ? "#f2f4f7" : "#f37" }}
+              onClick={handleLogin}
+            >
               이메일로 계속하기
+              {/* {result === 0 ? <Signup /> : result === 1 ? <Password /> : null} */}
             </button>
           </Link>
         </form>

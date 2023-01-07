@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactModal from "react-modal";
 import styled from "styled-components";
 import { IoIosSearch } from "react-icons/io";
+import axios from "axios";
 
 const SearchBarContainer = styled.div`
   max-width: 1060px;
@@ -102,6 +103,22 @@ const TagContainer = styled.ul`
 `;
 
 function Search({ isOpen }) {
+  const [searchWord, setSearchWord] = useState("");
+  const [relatedKeyword, setRelatedKeyword] = useState("");
+  const handleChange = (e) => {
+    setSearchWord(e.target.value);
+    setRelatedKeyword(getRelatedKeyword(e.target.value));
+  };
+  const getRelatedKeyword = (word) => {
+    axios
+      .get(`https://prod.seolki.shop/recruit/search?word=${word}`)
+      .then((res) => {
+        console.log(res.data);
+        setRelatedKeyword(res.data);
+      });
+    return [];
+  };
+
   return (
     <ReactModal
       isOpen={isOpen}
@@ -136,7 +153,20 @@ function Search({ isOpen }) {
     >
       <SearchBarContainer>
         <form>
-          <input type="search" placeholder="포지션 검색" autocomplete="off" />
+          <input
+            type="search"
+            value={searchWord}
+            placeholder="포지션 검색"
+            onChange={handleChange}
+            autoComplete="off"
+          />
+          {relatedKeyword.length > 0 && (
+            <ul>
+              {relatedKeyword.map((keyword, index) => (
+                <li key={index}>{keyword.title}</li>
+              ))}
+            </ul>
+          )}
           <IoIosSearch
             style={{
               position: "absolute",

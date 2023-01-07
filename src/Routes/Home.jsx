@@ -140,6 +140,35 @@ const ContentList = styled.div`
     justify-content: center;
     column-gap: 5px;
   }
+  ul {
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    grid-gap: 32px 20px;
+    gap: 32px 20px;
+    margin: 0 auto;
+  }
+  li {
+    position: relative;
+    transition: all 0.1s ease-out;
+    will-change: transform;
+    width: calc(25% - 15px);
+    display: list-item;
+  }
+  .thumbnail {
+    position: relative;
+    height: 150px;
+    padding-left: 0;
+    width: 214px;
+    padding-bottom: 70%;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    transition: opacity, color 0.1s ease-out;
+    box-sizing: border-box;
+  }
 `;
 
 const LineBanner = styled.div`
@@ -410,24 +439,17 @@ function Home() {
               </div>
             </div>
           </div>
-          <ul
-            style={{
-              width: "100%",
-              marginBottom: "50px",
-              display: "flex",
-              flexWrap: "wrap",
-              listStyleType: "none",
-              gridGap: "32px 20px",
-              gap: "32px 20px",
-              margin: "0 auto",
-            }}
-          >
-            {articleData &&
-              articleData.map((article) => (
-                <div key={article.homeArticleIdx}>
-                  <img src={article.articleImg} alt="article" />
-                </div>
-              ))}
+          <ul>
+            <li class="article-card">
+              <div class="thumbnail">
+                {articleData &&
+                  articleData.map((article) => (
+                    <div key={article.homeArticleIdx}>
+                      <img src={article.articleImg} alt="article" />
+                    </div>
+                  ))}
+              </div>
+            </li>
           </ul>
           <div class="content-more">
             <button class="content-more-button">
