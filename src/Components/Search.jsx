@@ -102,19 +102,45 @@ const TagContainer = styled.ul`
   }
 `;
 
+const ResultSection = styled.div`
+  padding-top: 20px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  position: relative;
+  padding: 50px 0 0;
+  max-width: 1060px;
+  ul {
+    padding-bottom: 40px;
+    list-style: none;
+  }
+  li {
+    margin-top: 10px;
+    display: block;
+    position: relative;
+    width: 100%;
+    font-size: 18px;
+    line-height: 37px;
+    padding: 0 27px;
+    margin-bottom: 2px;
+    color: #333;
+  }
+`;
+
 function Search({ isOpen }) {
   const [searchWord, setSearchWord] = useState("");
   const [relatedKeyword, setRelatedKeyword] = useState("");
+  const [searchResult, setSearchResult] = useState("default");
   const handleChange = (e) => {
     setSearchWord(e.target.value);
     setRelatedKeyword(getRelatedKeyword(e.target.value));
+    setSearchResult("result");
   };
   const getRelatedKeyword = (word) => {
     axios
       .get(`https://prod.seolki.shop/recruit/search?word=${word}`)
       .then((res) => {
-        console.log(res.data);
-        setRelatedKeyword(res.data);
+        console.log(res.data.result);
+        setRelatedKeyword(res.data.result);
       });
     return [];
   };
@@ -141,7 +167,6 @@ function Search({ isOpen }) {
           WebkitOverflowScrolling: "touch",
           outline: "none",
           width: "100%",
-          height: "270px",
           backgroundColor: "white",
           display: "flex",
           flexDirection: "column",
@@ -160,13 +185,7 @@ function Search({ isOpen }) {
             onChange={handleChange}
             autoComplete="off"
           />
-          {relatedKeyword.length > 0 && (
-            <ul>
-              {relatedKeyword.map((keyword, index) => (
-                <li key={index}>{keyword.title}</li>
-              ))}
-            </ul>
-          )}
+
           <IoIosSearch
             style={{
               position: "absolute",
@@ -189,35 +208,50 @@ function Search({ isOpen }) {
             </svg>
           </button>
         </form>
-        <TagTitle>
-          <h4>추천태그로 검색해 보세요</h4>
-          <span>
-            기업태그 홈 이동하기
-            <svg width="12" height="12" viewBox="0 0 12 12">
-              <path
-                fill="currentColor"
-                d="M4.22 9.72a.75.75 0 001.06 1.06l4.25-4.25a.75.75 0 000-1.06L5.28 1.22a.75.75 0 00-1.06 1.06L7.94 6 4.22 9.72z"
-              ></path>
-            </svg>
-          </span>
-        </TagTitle>
-        <TagContainer>
-          <button class="tag" style={{ background: "#f0f8f8" }}>
-            #수유실
-          </button>
-          <button class="tag" style={{ background: "#eeedf4" }}>
-            #퇴사율5%이하
-          </button>
-          <button class="tag" style={{ background: "#e8edf3" }}>
-            #생일선물
-          </button>
-          <button class="tag" style={{ background: "#e9f4fb" }}>
-            #연봉상위2~5%
-          </button>
-          <button class="tag" style={{ background: "#effbf3" }}>
-            #헬스장
-          </button>
-        </TagContainer>
+        {searchResult === "default" && (
+          <>
+            <TagTitle>
+              <h4>추천태그로 검색해 보세요</h4>
+              <span>
+                기업태그 홈 이동하기
+                <svg width="12" height="12" viewBox="0 0 12 12">
+                  <path
+                    fill="currentColor"
+                    d="M4.22 9.72a.75.75 0 001.06 1.06l4.25-4.25a.75.75 0 000-1.06L5.28 1.22a.75.75 0 00-1.06 1.06L7.94 6 4.22 9.72z"
+                  ></path>
+                </svg>
+              </span>
+            </TagTitle>
+            <TagContainer>
+              <button class="tag" style={{ background: "#f0f8f8" }}>
+                #수유실
+              </button>
+              <button class="tag" style={{ background: "#eeedf4" }}>
+                #퇴사율5%이하
+              </button>
+              <button class="tag" style={{ background: "#e8edf3" }}>
+                #생일선물
+              </button>
+              <button class="tag" style={{ background: "#e9f4fb" }}>
+                #연봉상위2~5%
+              </button>
+              <button class="tag" style={{ background: "#effbf3" }}>
+                #헬스장
+              </button>
+            </TagContainer>
+          </>
+        )}
+        {searchResult === "result" && (
+          <ResultSection>
+            {relatedKeyword.length > 0 && (
+              <ul>
+                {relatedKeyword.map((keyword, index) => (
+                  <li key={index}>{keyword.title}</li>
+                ))}
+              </ul>
+            )}
+          </ResultSection>
+        )}
       </SearchBarContainer>
     </ReactModal>
   );
