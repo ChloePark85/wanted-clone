@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { navigate, useNavigate } from "react-router-dom";
 
 const Base = styled.div`
   background-color: #f7f7f7;
@@ -201,7 +202,15 @@ const CheckboxSection = styled.div`
   }
 `;
 
-function Signup() {
+function Signup({ email, name, phoneNumber, password, passwordConfirm }) {
+  const [isValid, setIsValid] = useState(false);
+  const validateInput = () => {
+    if (email && name && phoneNumber && password && passwordConfirm) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  };
   const {
     register,
     handleSubmit,
@@ -209,10 +218,18 @@ function Signup() {
     formState: { errors },
   } = useForm();
 
-  //   console.log(watch());
+  console.log(watch());
   const onValid = (data) => {
     console.log(data);
   };
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    if (isValid) {
+      navigate("/signup/position");
+    }
+  };
+
   return (
     <Base>
       <SignupBox>
@@ -232,13 +249,15 @@ function Signup() {
             <div class="form-label">
               <label>이메일</label>
             </div>
-            <input type="email" disabled />
+            <input type="email" value={email} disabled />
             <div class="form-label">
               <label>이름</label>
             </div>
             <input
               type="text"
               placeholder="이름을 입력해주세요."
+              value={name}
+              onChange={(e) => validateInput()}
               {...register("name", { required: true })}
             />
             <div class="form-label">
@@ -250,6 +269,8 @@ function Signup() {
             </select>
             <div
               class="phone-number"
+              value={phoneNumber}
+              onChange={(e) => validateInput()}
               style={{ display: "flex", flexDirection: "row" }}
             >
               <input
@@ -274,11 +295,15 @@ function Signup() {
             <input
               type="number"
               placeholder="비밀번호를 입력해주세요."
+              value={password}
+              onChange={(e) => validateInput()}
               {...register("pw", { required: true })}
             />
             <input
               type="number"
               placeholder="비밀번호를 다시 한번 입력해주세요."
+              value={passwordConfirm}
+              onChange={(e) => validateInput()}
               {...register("pwagain", { required: true })}
             />
             <p>
@@ -410,7 +435,12 @@ function Signup() {
               </label>
             </div>
           </CheckboxSection>
-          <button class="submit-button" type="submit" disabled>
+          <button
+            class="submit-button"
+            type="submit"
+            disabled={!isValid}
+            onClick={handleNext}
+          >
             가입하기
           </button>
         </FormSection>

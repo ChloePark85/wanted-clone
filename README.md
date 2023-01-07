@@ -24,3 +24,17 @@
 ## 2023-01-04 진행상황
 - Main page banner api 연동
 - 커리어 인사이트 카테고리 slider 구현
+- login api 호출 및 연결 실패
+
+## 2023-01-05 진행상황
+- 커리어 인사이트 api 연동
+
+## 2023-01-06 진행상황
+- login api 호출 및 연결 실패, 이메일을 json 형태로 넘겨주는 것에서 Converting circular structure to json 오류
+
+## 2023-01-07 진행상황
+- search api 연동
+- signup > position 선택 페이지 구현
+- useEffect를 이용해 value가 입력되면 버튼 활성화하도록 구현
+- signup > position > interest tag 선택 페이지 구현
+- user state 관리를 위해 recoil 설치

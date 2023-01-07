@@ -123,6 +123,10 @@ const ResultSection = styled.div`
     padding: 0 27px;
     margin-bottom: 2px;
     color: #333;
+    &:hover {
+      background-color: #f2f4f7;
+      cursor: pointer;
+    }
   }
 `;
 

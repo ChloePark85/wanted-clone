@@ -8,6 +8,9 @@ import Login from './Routes/Login';
 import Signup from './Routes/Signup';
 import Password from './Routes/Password';
 import JobList from './Routes/JobList';
+import Position from './Routes/Position';
+import InterestTag from './Routes/InterestTag';
+import MyPage from './Routes/MyPage';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -40,6 +43,9 @@ function App() {
         <Route path="/login" exact element={<Login />}/>
         <Route path="/login/:id" exact element={<Password />}/>
         <Route path="/signup" exact element={<Signup />}/>
+        <Route path="/signup/position" exact element={<Position />}/>
+        <Route path="/signup/interest" exact element={<InterestTag />}/>
+        <Route path="/mypage" exact element={<MyPage />}/>
         </Routes>
     </Router>
     </>
