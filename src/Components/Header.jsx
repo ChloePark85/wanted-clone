@@ -4,7 +4,7 @@ import { IoIosSearch } from "react-icons/io";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 import SideMenu from "./SideMenu";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { userState } from "../recoil/user";
 
 const Base = styled.header`
@@ -112,7 +112,7 @@ const Employers = styled.div`
 `;
 
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(userState.isLogin);
+  const isLoggedIn = useRecoilValue(userState);
   const [isOpen, setOpen] = useState(false);
   const handleSearchClick = () => {
     setOpen(true);
@@ -186,13 +186,14 @@ function Header() {
                 <IoIosSearch style={{ width: "24px", height: "24px" }} />
                 <Search isOpen={isOpen} />
               </MenuButton>
-              {isLoggedIn ? (
+              {isLoggedIn.isLogin === true && (
                 <Link to="/mypage">
                   <MenuButton>
                     <SignIn>마이페이지</SignIn>
                   </MenuButton>
                 </Link>
-              ) : (
+              )}
+              {isLoggedIn.isLogin === false && (
                 <Link to="/login">
                   <MenuButton>
                     <SignIn>회원가입/로그인</SignIn>

@@ -11,8 +11,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
-import { useRecoilState } from "recoil";
-import { userState } from "../recoil/user";
+import ArticleDetail from "../Components/ArticleDetail";
 
 const ContentList = styled.div`
   margin: 0 auto;
@@ -35,11 +34,12 @@ const ContentList = styled.div`
   }
 
   .content-category {
-    margin: 0 auto;
     position: relative;
+    overflow: scroll;
   }
   .tag-slide-container {
     width: 100%;
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     position: relative;
@@ -48,7 +48,7 @@ const ContentList = styled.div`
     gap: 8px;
   }
   .tag-slide {
-    margin: 0 auto;
+    margin: 0 0 0 100px;
     max-width: calc(100%-40px -8px);
     position: relative;
     display: flex;
@@ -62,8 +62,9 @@ const ContentList = styled.div`
     overscroll-behavior: contain;
     flex-direction: row;
     align-items: center;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    width: 1000px;
+    /* overflow-x: scroll; */
+    overflow: scroll;
   }
   .tag-button {
     display: flex;
@@ -170,6 +171,13 @@ const ContentList = styled.div`
     overflow: hidden;
     transition: opacity, color 0.1s ease-out;
     box-sizing: border-box;
+  }
+  .article-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    word-break: break-word;
+    column-gap: 20px;
   }
 `;
 
@@ -323,24 +331,48 @@ const RecruitingSection = styled.div`
 `;
 
 function Home() {
+  const [articles, setArticles] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://prod.seolki.shop/home/all")
+      .then((res) => setArticles(res.data.result))
+      .catch((err) => console.log(err));
+  }, []);
+  console.log(articles);
+
+  // const [interestIdx, setInterestIdx] = useState(null);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`https://prod.seolki.shop/home/insight?interestIdx=${interestIdx}`)
+  //     .then((res) => {
+  //       setArticles(res.data.result);
+  //     });
+  // }, [interestIdx]);
+
+  // const handleInterestTagClick = (interestIdx) => {
+  //   setInterestIdx(interestIdx);
+  // };
+
   const [isOpen, setOpen] = useState(false);
   const handleTagClick = () => {
     setOpen(true);
   };
-  const [articleData, setArticleData] = useState([]);
+  // const [showArticleModal, setShowArticleModal] = useState(false);
+  // const [articleData, setArticleData] = useState({});
 
-  useEffect(() => {
-    getArticleDataByInterest();
-  }, []);
-
-  const getArticleDataByInterest = async () => {
-    const result = await axios({
-      method: "GET",
-      url: "https://prod.seolki.shop/home/insight?interestIdx=2",
-    });
-    setArticleData(result.data.result);
-    console.log(result);
-  };
+  // const handleArticleClick = async (homeArticleIdx) => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://prod.seolki.shop/home/${homeArticleIdx}`
+  //     );
+  //     const data = await response.json();
+  //     setArticleData(data);
+  //     setShowArticleModal(true);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div>
@@ -363,65 +395,145 @@ function Home() {
               <div class="tag-slide-container">
                 <div class="tag-slide">
                   <div class="tag-slide-grid">
-                    <button class="tag-button" type="button">
-                      <span>리더십</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(1)}
+                      type="button"
+                    >
+                      리더십
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>커리어고민</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(2)}
+                      type="button"
+                    >
+                      커리어고민
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>인간관계</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(3)}
+                      type="button"
+                    >
+                      인간관계
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>취업/이직</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(4)}
+                      type="button"
+                    >
+                      취업/이직
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>라이프스타일</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(13)}
+                      type="button"
+                    >
+                      라이프스타일
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>조직문화</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(12)}
+                      type="button"
+                    >
+                      조직문화
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>IT/기술</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(2)}
+                      type="button"
+                    >
+                      IT/기술
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>회사생활</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(9)}
+                      type="button"
+                    >
+                      회사생활
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>HR</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(6)}
+                      type="button"
+                    >
+                      HR
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>디자인</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(19)}
+                      type="button"
+                    >
+                      디자인
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>마케팅</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(8)}
+                      type="button"
+                    >
+                      마케팅
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>브랜딩</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(11)}
+                      type="button"
+                    >
+                      브랜딩
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>개발</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(3)}
+                      type="button"
+                    >
+                      개발
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>서비스기획</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(15)}
+                      type="button"
+                    >
+                      서비스기획
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>MD</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(16)}
+                      type="button"
+                    >
+                      MD
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>경영전략</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(10)}
+                      type="button"
+                    >
+                      경영전략
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>UX/UI</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(18)}
+                      type="button"
+                    >
+                      UX/UI
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>데이터</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(5)}
+                      type="button"
+                    >
+                      데이터
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>콘텐츠 제작</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(7)}
+                      type="button"
+                    >
+                      콘텐츠 제작
                     </button>
-                    <button class="tag-button" type="button">
-                      <span>노무</span>
+                    <button
+                      class="tag-button"
+                      // onClick={handleInterestTagClick(17)}
+                      type="button"
+                    >
+                      노무
                     </button>
                   </div>
                   <button
@@ -442,16 +554,44 @@ function Home() {
             </div>
           </div>
           <ul>
-            <li class="article-card">
-              <div class="thumbnail">
-                {articleData &&
-                  articleData.map((article) => (
-                    <div key={article.homeArticleIdx}>
-                      <img src={article.articleImg} alt="article" />
-                    </div>
-                  ))}
-              </div>
+            <li
+              style={{
+                width: "100%",
+                marginBottom: "50px",
+                display: "flex",
+                flexWrap: "wrap",
+                gridGap: "32px 20px",
+                gap: "32px 20px",
+                margin: "0 250px 0 100px",
+              }}
+            >
+              {articles.map((article) => (
+                <div
+                  key={article.homeArticleIdx}
+                  style={{ position: "relative", width: "calc(25% - 15px" }}
+                >
+                  <div>
+                    <img
+                      src={article.articleImg}
+                      alt={article.articleTitle}
+                      style={{
+                        width: "248px",
+                        height: "184px",
+                        borderRadius: "4px",
+                        cursor: "pointer",
+                      }}
+                      // onClick={handleArticleClick(article.homeArticleIdx)}
+                    />
+                  </div>
+                  <div style={{ padding: "14px 0", width: "214px" }}>
+                    <div>{article.articleTitle}</div>
+                    <div>{article.articleContent}</div>
+                    <div>{article.provider}</div>
+                  </div>
+                </div>
+              ))}
             </li>
+            {/* <ArticleDetail isOpen={showArticleModal} /> */}
           </ul>
           <div class="content-more">
             <button class="content-more-button">

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { navigate, useNavigate } from "react-router-dom";
+import {
+  navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 
 const Base = styled.div`
   background-color: #f7f7f7;
@@ -202,7 +207,7 @@ const CheckboxSection = styled.div`
   }
 `;
 
-function Signup({ email, name, phoneNumber, password, passwordConfirm }) {
+function Signup({ email }) {
   const [isValid, setIsValid] = useState(false);
   const validateInput = () => {
     if (email && name && phoneNumber && password && passwordConfirm) {
@@ -222,6 +227,11 @@ function Signup({ email, name, phoneNumber, password, passwordConfirm }) {
   const onValid = (data) => {
     console.log(data);
   };
+  const name = watch("name");
+  const phoneNumber = watch("phoneNumber");
+  const password = watch("password");
+  const passwordConfirm = watch("passwordConfirm");
+
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -229,6 +239,10 @@ function Signup({ email, name, phoneNumber, password, passwordConfirm }) {
       navigate("/signup/position");
     }
   };
+  // const { id } = useParams();
+  // const { state } = useLocation();
+  // console.log(id);
+  // console.log(state);
 
   return (
     <Base>
@@ -245,7 +259,10 @@ function Signup({ email, name, phoneNumber, password, passwordConfirm }) {
           <div class="empty"></div>
         </TitleSection>
         <FormSection>
-          <form onSubmit={handleSubmit(onValid)}>
+          <form
+            onSubmit={handleSubmit(onValid)}
+            style={{ display: "flex", flexDirection: "column" }}
+          >
             <div class="form-label">
               <label>이메일</label>
             </div>
@@ -273,11 +290,28 @@ function Signup({ email, name, phoneNumber, password, passwordConfirm }) {
               onChange={(e) => validateInput()}
               style={{ display: "flex", flexDirection: "row" }}
             >
+              <span
+                style={{
+                  color: "#fe415c",
+                  fontSize: "13px",
+                  marginTop: "2px",
+                  lineHeight: "18px",
+                  textAlign: "left",
+                }}
+              >
+                {errors?.phoneNumber?.message}
+              </span>
               <input
                 type="number"
                 style={{ width: "229px" }}
                 placeholder="(예시) 01013245768"
-                {...register("phonenumber", { required: true })}
+                {...register("phoneNumber", {
+                  required: true,
+                  pattern: {
+                    value: /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/,
+                    message: "올바른 전화번호를 입력해주세요.",
+                  },
+                })}
               />
               <button class="request-verification" disabled>
                 인증번호 받기
@@ -286,7 +320,7 @@ function Signup({ email, name, phoneNumber, password, passwordConfirm }) {
             <input
               type="number"
               placeholder="인증번호를 입력해주세요."
-              {...register("verficationnumber", { required: true })}
+              {...register("verficationnumber", { required: false })}
               disabled
             />
             <div class="form-label">
@@ -297,15 +331,17 @@ function Signup({ email, name, phoneNumber, password, passwordConfirm }) {
               placeholder="비밀번호를 입력해주세요."
               value={password}
               onChange={(e) => validateInput()}
-              {...register("pw", { required: true })}
+              {...register("password", { required: true, minLength: 8 })}
             />
+            {errors.password && <span>올바르지 않은 비밀번호입니다.</span>}
             <input
               type="number"
               placeholder="비밀번호를 다시 한번 입력해주세요."
               value={passwordConfirm}
               onChange={(e) => validateInput()}
-              {...register("pwagain", { required: true })}
+              {...register("passwordConfirm", { required: true, minLength: 8 })}
             />
+            {errors.password && <span>올바르지 않은 비밀번호입니다.</span>}
             <p>
               영문 대소문자, 숫자, 특수문자를 3가지 이상으로 조합해 8자 이상
               16자 이하로 입력해주세요.
@@ -438,8 +474,13 @@ function Signup({ email, name, phoneNumber, password, passwordConfirm }) {
           <button
             class="submit-button"
             type="submit"
-            disabled={!isValid}
             onClick={handleNext}
+            style={{
+              backgroundColor:
+                name && phoneNumber && password && passwordConfirm
+                  ? "#36f"
+                  : "#ddd",
+            }}
           >
             가입하기
           </button>

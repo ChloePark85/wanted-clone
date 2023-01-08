@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
+import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/user";
 
 const Base = styled.div`
   background-color: #f7f7f7;
@@ -156,6 +159,12 @@ function Password() {
       setNextButtonColor("#f2f4f7");
     }
   };
+  // const [password, setInputPassword] = useRecoilState(userState.pwd)
+  // const handleSubmitPassword = (e) => {
+  //   e.preventDefault();
+  //   setInputPassword(inputPassword);
+  // };
+
   return (
     <Base>
       <PasswordBoxSection>
@@ -164,6 +173,7 @@ function Password() {
             <button class="back-button-box">
               <IoIosArrowBack />
             </button>
+
             <div class="title">
               <p>이메일로 로그인</p>
             </div>

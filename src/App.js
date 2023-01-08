@@ -11,6 +11,7 @@ import JobList from './Routes/JobList';
 import Position from './Routes/Position';
 import InterestTag from './Routes/InterestTag';
 import MyPage from './Routes/MyPage';
+import JobDetail from './Routes/JobDetail';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -38,7 +39,9 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Home />}/>
         <Route path="/jobsfeed" exact element={<JobsFeed />}/>
+        
         <Route path="/joblist" exact element={<JobList />}/>
+        <Route path="/joblist/:id" exact element={<JobDetail />}/>
         <Route path="/community" exact element={<Community />}/>
         <Route path="/login" exact element={<Login />}/>
         <Route path="/login/:id" exact element={<Password />}/>

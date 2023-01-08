@@ -31,11 +31,18 @@
 
 ## 2023-01-06 진행상황
 - login api 호출 및 연결 실패, 이메일을 json 형태로 넘겨주는 것에서 Converting circular structure to json 오류
+- Job List 페이지 구현
 
 ## 2023-01-07 진행상황
 - search api 연동
 - signup > position 선택 페이지 구현
-- useEffect를 이용해 value가 입력되면 버튼 활성화하도록 구현
+- useEffect를 이용해 value가 입력되면 버튼 활성화하도록 구현(position, login)
 - signup > position > interest tag 선택 페이지 구현
 - user state 관리를 위해 recoil 설치
 - 비밀번호 입력 페이지 구현
+
+## 2023-01-08 진행상황
+- Joblist 페이지 구현
+- Joblist 페이지에서 전체, 최신순, 인기순, 보상금순 api 연동
+- Joblist 페이지에서 채용 카테고리별 분류 리스트 API 연동
+- 홈 화면 article api 연동 수정 중에 'too many re-renders' 에러 발생

@@ -4,6 +4,7 @@ import Header from "../Components/Header";
 import JobBanner from "../Components/JobBanner";
 import styled from "styled-components";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const LineBanner = styled.div`
   margin: 60px auto;
@@ -335,19 +336,21 @@ function JobsFeed() {
       <div style={{ paddingTop: "25px" }}>
         <JobBanner />
       </div>
-      <LineBanner>
-        <div class="line-banner">
-          <div class="line-banner-banner">
-            <svg
-              class="line-banner-search"
-              style={{ color: "rgb(255, 255, 255)" }}
-            >
-              <path d="M24.465 25.702a.875.875 0 0 0 1.237-1.237L18.12 16.88l-.296-.257a.875.875 0 0 0-1.187.043 7.876 7.876 0 1 1 1.96-3.216.875.875 0 0 0 1.67.525c.292-.93.442-1.902.442-2.893a9.625 9.625 0 0 0-9.625-9.625 9.625 9.625 0 0 0-9.625 9.625c0 5.315 4.31 9.625 9.625 9.625a9.589 9.589 0 0 0 6.161-2.23l7.22 7.224z"></path>
-            </svg>
-            채용 중인 포지션 보러가기
+      <Link to="/joblist">
+        <LineBanner>
+          <div class="line-banner">
+            <div class="line-banner-banner">
+              <svg
+                class="line-banner-search"
+                style={{ color: "rgb(255, 255, 255)" }}
+              >
+                <path d="M24.465 25.702a.875.875 0 0 0 1.237-1.237L18.12 16.88l-.296-.257a.875.875 0 0 0-1.187.043 7.876 7.876 0 1 1 1.96-3.216.875.875 0 0 0 1.67.525c.292-.93.442-1.902.442-2.893a9.625 9.625 0 0 0-9.625-9.625 9.625 9.625 0 0 0-9.625 9.625c0 5.315 4.31 9.625 9.625 9.625a9.589 9.589 0 0 0 6.161-2.23l7.22 7.224z"></path>
+              </svg>
+              채용 중인 포지션 보러가기
+            </div>
           </div>
-        </div>
-      </LineBanner>
+        </LineBanner>
+      </Link>
       <MatchedJobContainer>
         <div class="matchedjob-header">
           <div class="matchedjob-header-content">
@@ -380,9 +383,11 @@ function JobsFeed() {
         </div>
         <div class="emptymatched-container">
           <h3 class="emptymatched-text">회원가입하면 포지션을 추천해드려요.</h3>
-          <button class="emptymatched-button" type="button">
-            지금 시작하기
-          </button>
+          <Link to="/login">
+            <button class="emptymatched-button" type="button">
+              지금 시작하기
+            </button>
+          </Link>
         </div>
       </MatchedJobContainer>
       <CareerConnectBanner>

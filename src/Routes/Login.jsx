@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Password from "./Password";
 import Signup from "./Signup";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { userState } from "../recoil/user";
 
 const Base = styled.div`
   background-color: #f7f7f7;
@@ -79,7 +81,6 @@ const LoginBox = styled.div`
     margin: 0em;
   }
   button {
-    /* background-color: #f2f4f7; */
     color: #ccc;
     border: none;
     cursor: default;
@@ -212,7 +213,7 @@ const Footer = styled.div`
   }
 `;
 
-function Login() {
+function Login(props) {
   const {
     register,
     handleSubmit,
@@ -224,24 +225,49 @@ function Login() {
   const onValid = (data) => {
     console.log(data);
   };
-  const [checkEmail, setCheckEmail] = useState();
-  const handleLogin = async (email) => {
+  // const [checkEmail, setCheckEmail] = useState();
+  // const handleLogin = async (email) => {
+  //   const result = await axios({
+  //     method: "GET",
+  //     url: "https://prod.seolki.shop/users/sign-up",
+  // headers: { "Content-Type": "application/json" },
+  // data: { email: email },
+  // dataType: "json",
+  //   });
+  //   setCheckEmail(result.data.result);
+  //   console.log(checkEmail);
+  // };
+  const [backgroundColor, setBackgroundColor] = useState("#f2f4f7");
+  const email = watch("email");
+
+  useEffect(() => {
+    if (email && !errors.email) {
+      setBackgroundColor("#36f");
+    } else {
+      setBackgroundColor("#f2f4f7");
+    }
+  }, [email, errors.email]);
+
+  // const handleSubmitEmail = (e) => {
+  //   e.preventDefault();
+  // handleLogin(email);
+  //   setInputEmail(email);
+  // };
+  const navigate = useNavigate();
+  const handleLogin = async (data) => {
     const result = await axios({
       method: "GET",
-      url: "https://prod.seolki.shop/users/sign-up",
-      // headers: { "Content-Type": "application/json" },
-      // data: { email: email },
-      // dataType: "json",
+      url: "https://prod.seolki.shop/users/sign-in",
+      headers: { "Content-Type": "application/json" },
+      data: { email: data.email },
+      dataType: "json",
     });
-    setCheckEmail(result.data.result);
-    console.log(checkEmail);
-    // axios
-    //   .get("https://prod.seolki.shop/users/sign-up")
-    //   .then((res) => {
-    //     setResult(res.data.result);
-    //     console.log(result);
-    //   })
-    //   .catch((err) => console.log(err));
+    console.log(result.data.result);
+    if (result.data.result === "0") {
+      navigate("/signup");
+    } else {
+      navigate(`/login/${data.email}`);
+    }
   };
 
   return (
@@ -287,15 +313,12 @@ function Login() {
           >
             {errors?.email?.message}
           </span>
-          <Link to="">
-            <button
-              style={{ backgroundColor: errors.email ? "#f2f4f7" : "#f37" }}
-              onClick={handleLogin}
-            >
-              이메일로 계속하기
-              {/* {result === 0 ? <Signup /> : result === 1 ? <Password /> : null} */}
-            </button>
-          </Link>
+          <button
+            style={{ backgroundColor: backgroundColor }}
+            onClick={handleLogin}
+          >
+            이메일로 계속하기
+          </button>
         </form>
         <p>또는</p>
         <SocialLoginBox>
