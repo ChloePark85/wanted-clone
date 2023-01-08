@@ -7,6 +7,8 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { userState } from "../recoil/user";
 
 const Base = styled.div`
   background-color: #f7f7f7;
@@ -207,10 +209,12 @@ const CheckboxSection = styled.div`
   }
 `;
 
-function Signup({ email }) {
+function Signup() {
+  const [user, setUser] = useRecoilState(userState);
+  const email = useRecoilValue(userState).email;
   const [isValid, setIsValid] = useState(false);
   const validateInput = () => {
-    if (email && name && phoneNumber && password && passwordConfirm) {
+    if (email && nickName && phoneNum && pwd && pwdconfirm) {
       setIsValid(true);
     } else {
       setIsValid(false);
@@ -226,11 +230,17 @@ function Signup({ email }) {
   console.log(watch());
   const onValid = (data) => {
     console.log(data);
+    setUser({
+      ...user,
+      nickName: data.nickName,
+      phoneNum: data.phoneNumber,
+      pwd: data.pwd,
+    });
   };
-  const name = watch("name");
-  const phoneNumber = watch("phoneNumber");
-  const password = watch("password");
-  const passwordConfirm = watch("passwordConfirm");
+  const nickName = watch("nickName");
+  const phoneNum = watch("phoneNum");
+  const pwd = watch("pwd");
+  const pwdconfirm = watch("pwdconfirm");
 
   const navigate = useNavigate();
 
@@ -266,16 +276,17 @@ function Signup({ email }) {
             <div class="form-label">
               <label>이메일</label>
             </div>
-            <input type="email" value={email} disabled />
+            <input type="email" value={email} defaultValue={email} disabled />
             <div class="form-label">
               <label>이름</label>
             </div>
             <input
               type="text"
               placeholder="이름을 입력해주세요."
-              value={name}
+              id="nickname"
+              value={nickName}
               onChange={(e) => validateInput()}
-              {...register("name", { required: true })}
+              {...register("nickName", { required: true })}
             />
             <div class="form-label">
               <label>휴대폰 번호</label>
@@ -286,7 +297,8 @@ function Signup({ email }) {
             </select>
             <div
               class="phone-number"
-              value={phoneNumber}
+              value={phoneNum}
+              id="phoneNum"
               onChange={(e) => validateInput()}
               style={{ display: "flex", flexDirection: "row" }}
             >
@@ -299,13 +311,13 @@ function Signup({ email }) {
                   textAlign: "left",
                 }}
               >
-                {errors?.phoneNumber?.message}
+                {errors?.phoneNum?.message}
               </span>
               <input
                 type="number"
                 style={{ width: "229px" }}
                 placeholder="(예시) 01013245768"
-                {...register("phoneNumber", {
+                {...register("phoneNum", {
                   required: true,
                   pattern: {
                     value: /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/,
@@ -329,19 +341,19 @@ function Signup({ email }) {
             <input
               type="number"
               placeholder="비밀번호를 입력해주세요."
-              value={password}
+              value={pwd}
               onChange={(e) => validateInput()}
-              {...register("password", { required: true, minLength: 8 })}
+              {...register("pwd", { required: true, minLength: 8 })}
             />
             {errors.password && <span>올바르지 않은 비밀번호입니다.</span>}
             <input
               type="number"
               placeholder="비밀번호를 다시 한번 입력해주세요."
-              value={passwordConfirm}
+              value={pwdconfirm}
               onChange={(e) => validateInput()}
-              {...register("passwordConfirm", { required: true, minLength: 8 })}
+              {...register("pwdconfirm", { required: true, minLength: 8 })}
             />
-            {errors.password && <span>올바르지 않은 비밀번호입니다.</span>}
+            {errors.pwd && <span>올바르지 않은 비밀번호입니다.</span>}
             <p>
               영문 대소문자, 숫자, 특수문자를 3가지 이상으로 조합해 8자 이상
               16자 이하로 입력해주세요.
@@ -477,9 +489,7 @@ function Signup({ email }) {
             onClick={handleNext}
             style={{
               backgroundColor:
-                name && phoneNumber && password && passwordConfirm
-                  ? "#36f"
-                  : "#ddd",
+                nickName && phoneNum && pwd && pwdconfirm ? "#36f" : "#ddd",
             }}
           >
             가입하기

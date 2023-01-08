@@ -214,6 +214,7 @@ const Footer = styled.div`
 `;
 
 function Login(props) {
+  const [user, setUser] = useRecoilState(userState);
   const {
     register,
     handleSubmit,
@@ -224,6 +225,7 @@ function Login(props) {
   console.log(watch());
   const onValid = (data) => {
     console.log(data);
+    setUser({ ...user, email: data.email });
   };
   // const [checkEmail, setCheckEmail] = useState();
   // const handleLogin = async (email) => {

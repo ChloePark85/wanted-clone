@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/user";
 
 const Base = styled.div`
   display: flex;
@@ -170,6 +172,7 @@ const Footer = styled.div`
 `;
 
 function Position() {
+  const [user, setUser] = useRecoilState(userState);
   const [jobCategory, setJobCategory] = useState("");
   const [year, setYear] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#f2f4f7");
@@ -182,6 +185,11 @@ function Position() {
   };
   const handleClick = () => {
     if (jobCategory && year) {
+      setUser({
+        ...user,
+        subGroup: jobCategory,
+        workYear: year,
+      });
       navigate("/signup/interest");
     }
   };

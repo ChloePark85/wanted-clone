@@ -1,5 +1,7 @@
 import React from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { userState } from "../recoil/user";
 
 const Base = styled.div`
   display: flex;
@@ -141,6 +143,15 @@ const StartButton = styled.button`
 `;
 
 function InterestTag() {
+  const [user, setUser] = useRecoilState(userState);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(user);
+    setUser({
+      ...user,
+      isLogin: true,
+    });
+  };
   return (
     <Base>
       <InterestBoxWrapper>
@@ -284,7 +295,7 @@ function InterestTag() {
                 </ul>
               </div>
             </div>
-            <StartButton>원티드 시작하기</StartButton>
+            <StartButton onClick={handleSubmit}>원티드 시작하기</StartButton>
           </WrapperBodyContainer>
         </WrapperBody>
       </InterestBoxWrapper>

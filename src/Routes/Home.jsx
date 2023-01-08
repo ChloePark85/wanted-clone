@@ -332,6 +332,7 @@ const RecruitingSection = styled.div`
 
 function Home() {
   const [articles, setArticles] = useState([]);
+  // 전체 아티클 리스트 불러오기
   useEffect(() => {
     axios
       .get("https://prod.seolki.shop/home/all")
@@ -340,6 +341,7 @@ function Home() {
   }, []);
   console.log(articles);
 
+  // 관심분야에 따라 다른 아티클 불러오기: too many rerenderers 오류
   // const [interestIdx, setInterestIdx] = useState(null);
 
   // useEffect(() => {
@@ -354,24 +356,19 @@ function Home() {
   //   setInterestIdx(interestIdx);
   // };
 
+  // 태그 선택 버튼 클릭시 모달 오픈
   const [isOpen, setOpen] = useState(false);
   const handleTagClick = () => {
     setOpen(true);
   };
-  // const [showArticleModal, setShowArticleModal] = useState(false);
-  // const [articleData, setArticleData] = useState({});
 
-  // const handleArticleClick = async (homeArticleIdx) => {
-  //   try {
-  //     const response = await fetch(
-  //       `https://prod.seolki.shop/home/${homeArticleIdx}`
-  //     );
-  //     const data = await response.json();
-  //     setArticleData(data);
-  //     setShowArticleModal(true);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
+  // 아티클 클릭시 모달 오픈
+  // const [selectedArticleId, setSelectedArticleId] = useState(null);
+  // const [showArticleModal, setShowArticleModal] = useState(false);
+
+  // const handleArticleClick = (homeArticleIdx) => {
+  //   setSelectedArticleId(homeArticleIdx);
+  //   setShowArticleModal(true);
   // };
 
   return (
@@ -591,7 +588,9 @@ function Home() {
                 </div>
               ))}
             </li>
-            {/* <ArticleDetail isOpen={showArticleModal} /> */}
+            {/* {showArticleModal && (
+              <ArticleDetail articleId={selectedArticleId} />
+            )} */}
           </ul>
           <div class="content-more">
             <button class="content-more-button">

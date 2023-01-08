@@ -46,3 +46,5 @@
 - Joblist 페이지에서 전체, 최신순, 인기순, 보상금순 api 연동
 - Joblist 페이지에서 채용 카테고리별 분류 리스트 API 연동
 - 홈 화면 article api 연동 수정 중에 'too many re-renders' 에러 발생
+- 아티클 상세 화면 모달 구현
+- 아티클 클릭시 모달 오픈 부분 구현중에 'too many re-renders' 에러 발생
