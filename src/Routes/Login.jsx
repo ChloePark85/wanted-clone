@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Password from "./Password";
-import Signup from "./Signup";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { userState } from "../recoil/user";
 
 const Base = styled.div`
@@ -224,11 +222,23 @@ function Login(props) {
   } = useForm();
 
   console.log(watch());
+  const navigate = useNavigate();
 
   const onValid = (data) => {
     console.log(data);
     setUser({ ...user, email: data.email });
-    console.log(email);
+    if (data.email && !errors.email) {
+      axios
+        .get(`https://prod.seolki.shop/users/sign-up/${data.email}`)
+        .then((response) => {
+          console.log(response);
+          if (response.data.result === 1) {
+            navigate(`${data.email}`);
+          } else {
+            navigate("/signup");
+          }
+        });
+    }
   };
 
   // 버튼 색 변경하는 부분
@@ -243,26 +253,6 @@ function Login(props) {
     }
   }, [email, errors.email]);
 
-  const navigate = useNavigate();
-
-  const handleNextClick = (user) => {
-    setUser({ ...user, email: email });
-    navigate(`${user.email}`);
-    // navigate("/signup");
-  };
-  console.log(userState.email);
-  // const handleNextClick = async (email) => {
-  //   if (!errors.email) {
-  //     const response = await axios.get(
-  //       `https://prod.seolki.shop/users/sign-up/${email}`
-  //     );
-  //     if (response.data.result === 1) {
-  //       navigate(`/login/${email}`);
-  //     } else {
-  //       navigate("/register");
-  //     }
-  //   }
-  // };
   console.log(email);
 
   return (
@@ -308,11 +298,7 @@ function Login(props) {
           >
             {errors?.email?.message}
           </span>
-          <button
-            style={{ backgroundColor: backgroundColor }}
-            onClick={handleNextClick}
-            type="button"
-          >
+          <button style={{ backgroundColor: backgroundColor }} type="submit">
             이메일로 계속하기
           </button>
         </form>

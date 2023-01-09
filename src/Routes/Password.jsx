@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userState } from "../recoil/user";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Base = styled.div`
   background-color: #f7f7f7;
@@ -151,6 +153,14 @@ const BodyContainer = styled.div`
 function Password() {
   const [user, setUser] = useRecoilState(userState);
   const email = useRecoilValue(userState).email;
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  console.log(watch());
   const [password, setPassword] = useState("");
   const [nextButtonColor, setNextButtonColor] = useState("#f2f4f7");
   const handlePasswordChange = (e) => {
@@ -161,11 +171,32 @@ function Password() {
       setNextButtonColor("#f2f4f7");
     }
   };
+  const navigate = useNavigate();
+  const onValid = (data) => {
+    console.log(data);
+    setUser({ ...user, pwd: data.password });
+    // if (data.password && !errors.password) {
+    axios
+      .post("https://prod.seolki.shop/users/login", {
+        body: {
+          email: email,
+          pwd: data.password,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.isSuccess) {
+          setUser({ ...user, isLogin: true });
+          navigate("/");
+        } else {
+          alert("로그인 실패");
+        }
+      });
+    // }
+  };
 
-  // const handleSubmitPassword = (e) => {
-  //   e.preventDefault();
-  //   setUser(inputPassword);
-  // };
+  console.log(email);
+  console.log(password);
 
   return (
     <Base>
@@ -182,23 +213,26 @@ function Password() {
             <div class="empty"></div>
           </div>
           <BodyContainer>
-            <form>
-              <div class="label-container">
-                <label>비밀번호</label>
-              </div>
+            <div class="label-container">
+              <label>비밀번호</label>
+            </div>
+            <form onSubmit={handleSubmit(onValid)}>
               <input
-                value={password}
+                {...register("pwd", {
+                  required: true,
+                })}
                 onChange={handlePasswordChange}
                 placeholder="비밀번호를 입력해주세요."
               ></input>
+
+              <button
+                class="next-button"
+                type="submit"
+                style={{ backgroundColor: nextButtonColor }}
+              >
+                다음
+              </button>
             </form>
-            <button
-              class="next-button"
-              type="submit"
-              style={{ backgroundColor: nextButtonColor }}
-            >
-              다음
-            </button>
             <button class="password-reset-button" type="submit">
               <span>비밀번호 초기화/변경</span>
             </button>

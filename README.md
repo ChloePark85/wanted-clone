@@ -48,3 +48,8 @@
 - 홈 화면 article api 연동 수정 중에 'too many re-renders' 에러 발생
 - 아티클 상세 화면 모달 구현
 - 아티클 클릭시 모달 오픈 부분 구현중에 'too many re-renders' 에러 발생
+
+## 2023-01-09 진행상황
+- login email address 를 recoil에 저장하고 다음 페이지로 넘겨줄 때 [object Object] 에러 발생
+- login email address 이슈 해결, 중복체크 API 연동
+- 
