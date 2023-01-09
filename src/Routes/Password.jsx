@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { userState } from "../recoil/user";
 
 const Base = styled.div`
@@ -149,6 +149,8 @@ const BodyContainer = styled.div`
 `;
 
 function Password() {
+  const [user, setUser] = useRecoilState(userState);
+  const email = useRecoilValue(userState).email;
   const [password, setPassword] = useState("");
   const [nextButtonColor, setNextButtonColor] = useState("#f2f4f7");
   const handlePasswordChange = (e) => {
@@ -159,10 +161,10 @@ function Password() {
       setNextButtonColor("#f2f4f7");
     }
   };
-  // const [password, setInputPassword] = useRecoilState(userState.pwd)
+
   // const handleSubmitPassword = (e) => {
   //   e.preventDefault();
-  //   setInputPassword(inputPassword);
+  //   setUser(inputPassword);
   // };
 
   return (

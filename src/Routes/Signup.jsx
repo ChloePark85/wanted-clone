@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import {
-  navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { userState } from "../recoil/user";
 
@@ -161,6 +156,7 @@ const FormSection = styled.div`
     font-size: 16px;
     margin-bottom: 10px;
     margin-top: 30px;
+    cursor: pointer;
   }
   .submit-button:disabled {
     color: #ccc;
@@ -210,11 +206,12 @@ const CheckboxSection = styled.div`
 `;
 
 function Signup() {
+  const userEmail = useRecoilValue(userState).email;
   const [user, setUser] = useRecoilState(userState);
-  const email = useRecoilValue(userState).email;
+  console.log(userEmail);
   const [isValid, setIsValid] = useState(false);
   const validateInput = () => {
-    if (email && nickName && phoneNum && pwd && pwdconfirm) {
+    if (nickName && phoneNum && pwd && pwdconfirm) {
       setIsValid(true);
     } else {
       setIsValid(false);
@@ -244,15 +241,13 @@ function Signup() {
 
   const navigate = useNavigate();
 
-  const handleNext = () => {
-    if (isValid) {
+  const handleNextClick = () => {
+    if (nickName && phoneNum && pwd && pwdconfirm) {
       navigate("/signup/position");
+    } else {
+      alert("모든 항목을 입력해주세요");
     }
   };
-  // const { id } = useParams();
-  // const { state } = useLocation();
-  // console.log(id);
-  // console.log(state);
 
   return (
     <Base>
@@ -276,7 +271,12 @@ function Signup() {
             <div class="form-label">
               <label>이메일</label>
             </div>
-            <input type="email" value={email} defaultValue={email} disabled />
+            <input
+              type="email"
+              defaultValue={userEmail}
+              disabled
+              // {...register("email", { required: true })}
+            />
             <div class="form-label">
               <label>이름</label>
             </div>
@@ -332,7 +332,6 @@ function Signup() {
             <input
               type="number"
               placeholder="인증번호를 입력해주세요."
-              {...register("verficationnumber", { required: false })}
               disabled
             />
             <div class="form-label">
@@ -343,7 +342,7 @@ function Signup() {
               placeholder="비밀번호를 입력해주세요."
               value={pwd}
               onChange={(e) => validateInput()}
-              {...register("pwd", { required: true, minLength: 8 })}
+              {...register("pwd", { required: true })}
             />
             {errors.password && <span>올바르지 않은 비밀번호입니다.</span>}
             <input
@@ -351,7 +350,7 @@ function Signup() {
               placeholder="비밀번호를 다시 한번 입력해주세요."
               value={pwdconfirm}
               onChange={(e) => validateInput()}
-              {...register("pwdconfirm", { required: true, minLength: 8 })}
+              {...register("pwdconfirm", { required: true })}
             />
             {errors.pwd && <span>올바르지 않은 비밀번호입니다.</span>}
             <p>
@@ -486,7 +485,7 @@ function Signup() {
           <button
             class="submit-button"
             type="submit"
-            onClick={handleNext}
+            onClick={handleNextClick}
             style={{
               backgroundColor:
                 nickName && phoneNum && pwd && pwdconfirm ? "#36f" : "#ddd",

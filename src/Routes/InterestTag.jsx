@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/user";
@@ -144,14 +144,24 @@ const StartButton = styled.button`
 
 function InterestTag() {
   const [user, setUser] = useRecoilState(userState);
+  const [interestIdx, setInterestIdx] = useRecoilState(userState);
+  const [buttonColor, setButtonColor] = useState("f1f4f7");
+
+  const handleTagClick = (interestIdx) => {
+    setInterestIdx(interestIdx);
+    setButtonColor("#36f");
+    setUser({ ...user, interestIdx: interestIdx });
+  };
+  console.log(interestIdx);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
     setUser({
       ...user,
       isLogin: true,
     });
+    console.log(user);
   };
+
   return (
     <Base>
       <InterestBoxWrapper>
@@ -204,16 +214,27 @@ function InterestTag() {
                   </li>
                   <ul style={{ marginBottom: "0" }}>
                     <li class="tag-button">
-                      <button>커리어고민</button>
+                      <button
+                        onClick={() => handleTagClick(1)}
+                        style={{ backgroundColor: buttonColor }}
+                      >
+                        커리어고민
+                      </button>
                     </li>
                     <li class="tag-button">
-                      <button>취업/이직</button>
+                      <button onClick={() => handleTagClick(2)}>
+                        취업/이직
+                      </button>
                     </li>
                     <li class="tag-button">
-                      <button>회사생활</button>
+                      <button onClick={() => handleTagClick(3)}>
+                        회사생활
+                      </button>
                     </li>
                     <li class="tag-button">
-                      <button>인간관계</button>
+                      <button onClick={() => handleTagClick(4)}>
+                        인간관계
+                      </button>
                     </li>
                   </ul>
                   <li style={{ minWidth: "90%" }}>
@@ -227,34 +248,40 @@ function InterestTag() {
                   </li>
                   <ul style={{ marginBottom: "0" }}>
                     <li class="tag-button">
-                      <button>개발</button>
+                      <button onClick={() => handleTagClick(5)}>개발</button>
                     </li>
                     <li class="tag-button">
-                      <button>데이터</button>
+                      <button onClick={() => handleTagClick(6)}>데이터</button>
                     </li>
                     <li class="tag-button">
-                      <button>HR</button>
+                      <button onClick={() => handleTagClick(7)}>HR</button>
                     </li>
                     <li class="tag-button">
-                      <button>서비스기획</button>
+                      <button onClick={() => handleTagClick(8)}>
+                        서비스기획
+                      </button>
                     </li>
                     <li class="tag-button">
-                      <button>마케팅</button>
+                      <button onClick={() => handleTagClick(9)}>마케팅</button>
                     </li>
                     <li class="tag-button">
-                      <button>디자인</button>
+                      <button onClick={() => handleTagClick(10)}>디자인</button>
                     </li>
                     <li class="tag-button">
-                      <button>경영/전략</button>
+                      <button onClick={() => handleTagClick(11)}>
+                        경영/전략
+                      </button>
                     </li>
                     <li class="tag-button">
-                      <button>CS/CX</button>
+                      <button onClick={() => handleTagClick(12)}>CS/CX</button>
                     </li>
                     <li class="tag-button">
-                      <button>MD</button>
+                      <button onClick={() => handleTagClick(13)}>MD</button>
                     </li>
                     <li class="tag-button">
-                      <button>콘텐츠 제작</button>
+                      <button onClick={() => handleTagClick(14)}>
+                        콘텐츠 제작
+                      </button>
                     </li>
                   </ul>
                   <li style={{ minWidth: "90%" }}>
@@ -268,28 +295,36 @@ function InterestTag() {
                   </li>
                   <ul style={{ marginBottom: "0" }}>
                     <li class="tag-button">
-                      <button>IT/기술</button>
+                      <button onClick={() => handleTagClick(15)}>
+                        IT/기술
+                      </button>
                     </li>
                     <li class="tag-button">
-                      <button>브랜딩</button>
+                      <button onClick={() => handleTagClick(16)}>브랜딩</button>
                     </li>
                     <li class="tag-button">
-                      <button>라이프스타일</button>
+                      <button onClick={() => handleTagClick(17)}>
+                        라이프스타일
+                      </button>
                     </li>
                     <li class="tag-button">
-                      <button>UX/UI</button>
+                      <button onClick={() => handleTagClick(18)}>UX/UI</button>
                     </li>
                     <li class="tag-button">
-                      <button>노무</button>
+                      <button onClick={() => handleTagClick(19)}>노무</button>
                     </li>
                     <li class="tag-button">
-                      <button>리더십</button>
+                      <button onClick={() => handleTagClick(20)}>리더십</button>
                     </li>
                     <li class="tag-button">
-                      <button>조직문화</button>
+                      <button onClick={() => handleTagClick(21)}>
+                        조직문화
+                      </button>
                     </li>
                     <li class="tag-button">
-                      <button>한입콘텐츠</button>
+                      <button onClick={() => handleTagClick(22)}>
+                        한입콘텐츠
+                      </button>
                     </li>
                   </ul>
                 </ul>

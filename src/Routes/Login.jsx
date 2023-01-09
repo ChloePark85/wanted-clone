@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Password from "./Password";
 import Signup from "./Signup";
@@ -214,6 +214,7 @@ const Footer = styled.div`
 `;
 
 function Login(props) {
+  // 사용자 정보를 저장하는 state
   const [user, setUser] = useRecoilState(userState);
   const {
     register,
@@ -223,22 +224,14 @@ function Login(props) {
   } = useForm();
 
   console.log(watch());
+
   const onValid = (data) => {
     console.log(data);
     setUser({ ...user, email: data.email });
+    console.log(email);
   };
-  // const [checkEmail, setCheckEmail] = useState();
-  // const handleLogin = async (email) => {
-  //   const result = await axios({
-  //     method: "GET",
-  //     url: "https://prod.seolki.shop/users/sign-up",
-  // headers: { "Content-Type": "application/json" },
-  // data: { email: email },
-  // dataType: "json",
-  //   });
-  //   setCheckEmail(result.data.result);
-  //   console.log(checkEmail);
-  // };
+
+  // 버튼 색 변경하는 부분
   const [backgroundColor, setBackgroundColor] = useState("#f2f4f7");
   const email = watch("email");
 
@@ -250,27 +243,27 @@ function Login(props) {
     }
   }, [email, errors.email]);
 
-  // const handleSubmitEmail = (e) => {
-  //   e.preventDefault();
-  // handleLogin(email);
-  //   setInputEmail(email);
-  // };
   const navigate = useNavigate();
-  const handleLogin = async (data) => {
-    const result = await axios({
-      method: "GET",
-      url: "https://prod.seolki.shop/users/sign-in",
-      headers: { "Content-Type": "application/json" },
-      data: { email: data.email },
-      dataType: "json",
-    });
-    console.log(result.data.result);
-    if (result.data.result === "0") {
-      navigate("/signup");
-    } else {
-      navigate(`/login/${data.email}`);
-    }
+
+  const handleNextClick = (user) => {
+    setUser({ ...user, email: email });
+    navigate(`${user.email}`);
+    // navigate("/signup");
   };
+  console.log(userState.email);
+  // const handleNextClick = async (email) => {
+  //   if (!errors.email) {
+  //     const response = await axios.get(
+  //       `https://prod.seolki.shop/users/sign-up/${email}`
+  //     );
+  //     if (response.data.result === 1) {
+  //       navigate(`/login/${email}`);
+  //     } else {
+  //       navigate("/register");
+  //     }
+  //   }
+  // };
+  console.log(email);
 
   return (
     <Base>
@@ -317,7 +310,8 @@ function Login(props) {
           </span>
           <button
             style={{ backgroundColor: backgroundColor }}
-            onClick={handleLogin}
+            onClick={handleNextClick}
+            type="button"
           >
             이메일로 계속하기
           </button>
