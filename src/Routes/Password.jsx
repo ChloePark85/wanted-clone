@@ -178,10 +178,11 @@ function Password() {
     // if (data.password && !errors.password) {
     axios
       .post("https://prod.seolki.shop/users/login", {
-        body: {
-          email: email,
-          pwd: data.password,
-        },
+        email: email,
+        pwd: data.pwd,
+        // body: {
+
+        // },
       })
       .then((response) => {
         console.log(response);

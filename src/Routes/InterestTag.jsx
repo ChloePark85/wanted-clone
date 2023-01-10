@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/user";
@@ -147,20 +149,47 @@ function InterestTag() {
   const [interestIdx, setInterestIdx] = useRecoilState(userState);
   const [buttonColor, setButtonColor] = useState("f1f4f7");
   const nickName = useRecoilValue(userState).nickName;
+  const email = useRecoilValue(userState).email;
+  const phoneNum = useRecoilValue(userState).phoneNum;
+  const pwd = useRecoilValue(userState).pwd;
+  const subGroup = useRecoilValue(userState).subGroup;
+  const workYear = useRecoilValue(userState).workYear;
 
   const handleTagClick = (interestIdx) => {
     setInterestIdx(interestIdx);
-    setButtonColor("#36f");
-  };
-  console.log(interestIdx);
-  const handleSubmit = (e) => {
-    e.preventDefault();
     setUser({
       ...user,
       interestIdx: interestIdx,
       isLogin: true,
     });
-    console.log(user);
+    setButtonColor("#36f");
+  };
+  console.log(interestIdx);
+
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    axios
+      .post("https://prod.seolki.shop/users", {
+        data: {
+          nickName,
+          email,
+          phoneNum,
+          pwd,
+          subGroup,
+          workYear,
+          interestIdx,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.isSuccess === true) {
+          alert("회원가입 성공");
+          navigate("/");
+        } else {
+          alert("회원가입 실패");
+        }
+      });
   };
 
   return (

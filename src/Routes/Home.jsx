@@ -362,13 +362,17 @@ function Home() {
     setOpen(true);
   };
 
-  // 아티클 클릭시 모달 오픈
+  // 아티클 클릭시 모달 오픈: too many rerenderers 오류
   // const [selectedArticleId, setSelectedArticleId] = useState(null);
-  // const [showArticleModal, setShowArticleModal] = useState(false);
+  // const [articleModalOpen, setArticleModalOpen] = useState(false);
 
-  // const handleArticleClick = (homeArticleIdx) => {
-  //   setSelectedArticleId(homeArticleIdx);
-  //   setShowArticleModal(true);
+  // const openArticleModal = (articleId) => {
+  //   setSelectedArticleId(articleId);
+  //   setArticleModalOpen(true);
+  // };
+
+  // const closeArticleModal = () => {
+  //   setArticleModalOpen(false);
   // };
 
   return (
@@ -566,6 +570,7 @@ function Home() {
                 <div
                   key={article.homeArticleIdx}
                   style={{ position: "relative", width: "calc(25% - 15px" }}
+                  // onClick={openArticleModal(article.homeArticleIdx)}
                 >
                   <div>
                     <img
@@ -588,6 +593,12 @@ function Home() {
                 </div>
               ))}
             </li>
+            {/* <ArticleDetail
+              isOpen={articleModalOpen}
+              onRequestClose={closeArticleModal}
+              articleId={selectedArticleId}
+            /> */}
+
             {/* {showArticleModal && (
               <ArticleDetail articleId={selectedArticleId} />
             )} */}

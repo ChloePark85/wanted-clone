@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Components/Header";
 
@@ -170,7 +171,7 @@ const JobListContentWrapper = styled.div`
   }
 `;
 
-function JobList() {
+function JobList(props) {
   const [jobs, setJobs] = useState([]);
   const [option, setOption] = useState(1);
   const handleOptionChange = (event) => {
@@ -210,6 +211,12 @@ function JobList() {
         setJobs(res.data.result);
       });
     }
+  };
+  const navigate = useNavigate();
+  const onClickJobItem = () => {
+    navigate(`/joblist/${jobs.jobIdx}`, {
+      state: props,
+    });
   };
 
   const [jobType, setJobType] = useState(null);
@@ -359,13 +366,13 @@ function JobList() {
             <div className="bookmark-section"></div>
             <div className="job-list-section">
               <ul className="job-list-ul">
-                <div className="body" class="job-card">
-                  {jobs.map((job) => (
-                    <div key={job.jobIdx}>
+                <div className="body" class="job-card" onClick={onClickJobItem}>
+                  {jobs.map((props) => (
+                    <div key={props.jobIdx}>
                       <div>
                         <img
-                          src={job.jobImgUrl}
-                          alt={job.company}
+                          src={props.jobImgUrl}
+                          alt={props.company}
                           style={{
                             width: "248px",
                             height: "184px",
@@ -374,10 +381,10 @@ function JobList() {
                         />
                       </div>
                       <div style={{ padding: "14px 0", width: "214px" }}>
-                        <div className="job-card-position">{job.title}</div>
-                        <div className="job-card-company">{job.company}</div>
-                        <div className="job-card-location">{job.region}</div>
-                        <div className="reward">채용보상금 {job.money}원</div>
+                        <div className="job-card-position">{props.title}</div>
+                        <div className="job-card-company">{props.company}</div>
+                        <div className="job-card-location">{props.region}</div>
+                        <div className="reward">채용보상금 {props.money}원</div>
                       </div>
                     </div>
                   ))}

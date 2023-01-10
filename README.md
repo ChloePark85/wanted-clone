@@ -53,3 +53,8 @@
 - login email address 를 recoil에 저장하고 다음 페이지로 넘겨줄 때 [object Object] 에러 발생
 - login email address 이슈 해결, 중복체크 API 연동
 - 회원가입 페이지에서 입력한 정보가 recoil에 저장되지 않는 에러 발생
+  
+## 2023-01-10 진행상황
+- 회원가입 페이지 오류 해결
+- 관심태그 페이지 api 호출시 userState에 저장된 정보가 넘겨지지 않는 에러 발생
+- 
