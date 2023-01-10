@@ -209,14 +209,7 @@ function Signup() {
   const userEmail = useRecoilValue(userState).email;
   const [user, setUser] = useRecoilState(userState);
   console.log(userEmail);
-  const [isValid, setIsValid] = useState(false);
-  const validateInput = () => {
-    if (nickName && phoneNum && pwd && pwdconfirm) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
-  };
+
   const {
     register,
     handleSubmit,
@@ -225,24 +218,24 @@ function Signup() {
   } = useForm();
 
   console.log(watch());
+  const navigate = useNavigate();
+
   const onValid = (data) => {
     console.log(data);
-    setUser({
-      ...user,
-      nickName: data.nickName,
-      phoneNum: data.phoneNumber,
-      pwd: data.pwd,
-    });
   };
   const nickName = watch("nickName");
   const phoneNum = watch("phoneNum");
   const pwd = watch("pwd");
   const pwdconfirm = watch("pwdconfirm");
 
-  const navigate = useNavigate();
-
   const handleNextClick = () => {
     if (nickName && phoneNum && pwd && pwdconfirm) {
+      setUser({
+        ...user,
+        nickName: nickName,
+        phoneNum: phoneNum,
+        pwd: pwd,
+      });
       navigate("/signup/position");
     } else {
       alert("모든 항목을 입력해주세요");
@@ -271,21 +264,13 @@ function Signup() {
             <div class="form-label">
               <label>이메일</label>
             </div>
-            <input
-              type="email"
-              defaultValue={userEmail}
-              disabled
-              // {...register("email", { required: true })}
-            />
+            <input type="email" defaultValue={userEmail} disabled />
             <div class="form-label">
               <label>이름</label>
             </div>
             <input
               type="text"
               placeholder="이름을 입력해주세요."
-              id="nickname"
-              value={nickName}
-              onChange={(e) => validateInput()}
               {...register("nickName", { required: true })}
             />
             <div class="form-label">
@@ -297,9 +282,6 @@ function Signup() {
             </select>
             <div
               class="phone-number"
-              value={phoneNum}
-              id="phoneNum"
-              onChange={(e) => validateInput()}
               style={{ display: "flex", flexDirection: "row" }}
             >
               <span
@@ -340,16 +322,12 @@ function Signup() {
             <input
               type="number"
               placeholder="비밀번호를 입력해주세요."
-              value={pwd}
-              onChange={(e) => validateInput()}
               {...register("pwd", { required: true })}
             />
             {errors.password && <span>올바르지 않은 비밀번호입니다.</span>}
             <input
               type="number"
               placeholder="비밀번호를 다시 한번 입력해주세요."
-              value={pwdconfirm}
-              onChange={(e) => validateInput()}
               {...register("pwdconfirm", { required: true })}
             />
             {errors.pwd && <span>올바르지 않은 비밀번호입니다.</span>}
@@ -357,142 +335,142 @@ function Signup() {
               영문 대소문자, 숫자, 특수문자를 3가지 이상으로 조합해 8자 이상
               16자 이하로 입력해주세요.
             </p>
-          </form>
 
-          <CheckboxSection>
-            <div class="check-agree" style={{ margin: "28px 0px 10px" }}>
-              <div class="check-box"></div>
-              <input type="checkbox"></input>
-              <div style={{ display: "flex", flex: "1 1 0%" }}>
-                <p
-                  style={{
-                    textAlign: "left",
-                    margin: "0px 0px 0px 7px",
-                    color: "#333",
-                    fontWeight: "600",
-                    fontSize: "15px",
-                  }}
-                >
-                  전체 동의
-                </p>
+            <CheckboxSection>
+              <div class="check-agree" style={{ margin: "28px 0px 10px" }}>
+                <div class="check-box"></div>
+                <input type="checkbox"></input>
+                <div style={{ display: "flex", flex: "1 1 0%" }}>
+                  <p
+                    style={{
+                      textAlign: "left",
+                      margin: "0px 0px 0px 7px",
+                      color: "#333",
+                      fontWeight: "600",
+                      fontSize: "15px",
+                    }}
+                  >
+                    전체 동의
+                  </p>
+                </div>
               </div>
-            </div>
-            <hr
+              <hr
+                style={{
+                  borderTop: "none",
+                  borderRight: "none",
+                  width: "100%",
+                  borderBottom: "1px solid #e1e2e3",
+                }}
+              />
+              <div class="check-agree" style={{ margin: "10px 0px" }}>
+                <div class="check-box"></div>
+                <input type="checkbox"></input>
+                <div style={{ display: "flex", flex: "1 1 0%" }}>
+                  <p
+                    style={{
+                      textAlign: "left",
+                      margin: "0px 0px 0px 7px",
+                      color: "#888",
+                      fontWeight: "500",
+                      fontSize: "15px",
+                    }}
+                  >
+                    만 14세 이상입니다. (필수)
+                  </p>
+                </div>
+              </div>
+              <div class="check-agree" style={{ margin: "10px 0px" }}>
+                <div class="check-box"></div>
+                <input type="checkbox"></input>
+                <div style={{ display: "flex", flex: "1 1 0%" }}>
+                  <p
+                    style={{
+                      textAlign: "left",
+                      margin: "0px 0px 0px 7px",
+                      color: "#888",
+                      fontWeight: "500",
+                      fontSize: "15px",
+                    }}
+                  >
+                    OneID 및 원티드 이용약관 동의 (필수)
+                  </p>
+                </div>
+              </div>
+              <div class="check-agree" style={{ margin: "10px 0px" }}>
+                <div class="check-box"></div>
+                <input type="checkbox"></input>
+                <div style={{ display: "flex", flex: "1 1 0%" }}>
+                  <p
+                    style={{
+                      textAlign: "left",
+                      margin: "0px 0px 0px 7px",
+                      color: "#888",
+                      fontWeight: "500",
+                      fontSize: "15px",
+                    }}
+                  >
+                    OneID 및 개인정보 수집 및 이용 동의 (필수)
+                  </p>
+                </div>
+              </div>
+              <div class="check-agree" style={{ margin: "10px 0px" }}>
+                <div class="check-box"></div>
+                <input type="checkbox"></input>
+                <div style={{ display: "flex", flex: "1 1 0%" }}>
+                  <p
+                    style={{
+                      textAlign: "left",
+                      margin: "0px 0px 0px 7px",
+                      color: "#888",
+                      fontWeight: "500",
+                      fontSize: "15px",
+                    }}
+                  >
+                    원티드 개인정보 수집 및 이용 동의 (필수)
+                  </p>
+                </div>
+              </div>
+              <div class="check-agree" style={{ margin: "10px 0px" }}>
+                <div class="check-box"></div>
+                <input type="checkbox"></input>
+                <div style={{ display: "flex", flex: "1 1 0%" }}>
+                  <p
+                    style={{
+                      textAlign: "left",
+                      margin: "0px 0px 0px 7px",
+                      color: "#888",
+                      fontWeight: "500",
+                      fontSize: "15px",
+                    }}
+                  >
+                    채용 소식, 커리어 콘텐츠, 이벤트 등 원티드 맞춤 정보 받기
+                  </p>
+                </div>
+              </div>
+              <div class="marketing-agree">
+                <label>
+                  <span>이메일</span>
+                </label>
+                <label>
+                  <span>앱 푸시</span>
+                </label>
+                <label>
+                  <span>문자 메시지</span>
+                </label>
+              </div>
+            </CheckboxSection>
+            <button
+              class="submit-button"
+              type="submit"
+              onClick={handleNextClick}
               style={{
-                borderTop: "none",
-                borderRight: "none",
-                width: "100%",
-                borderBottom: "1px solid #e1e2e3",
+                backgroundColor:
+                  nickName && phoneNum && pwd && pwdconfirm ? "#36f" : "#ddd",
               }}
-            />
-            <div class="check-agree" style={{ margin: "10px 0px" }}>
-              <div class="check-box"></div>
-              <input type="checkbox"></input>
-              <div style={{ display: "flex", flex: "1 1 0%" }}>
-                <p
-                  style={{
-                    textAlign: "left",
-                    margin: "0px 0px 0px 7px",
-                    color: "#888",
-                    fontWeight: "500",
-                    fontSize: "15px",
-                  }}
-                >
-                  만 14세 이상입니다. (필수)
-                </p>
-              </div>
-            </div>
-            <div class="check-agree" style={{ margin: "10px 0px" }}>
-              <div class="check-box"></div>
-              <input type="checkbox"></input>
-              <div style={{ display: "flex", flex: "1 1 0%" }}>
-                <p
-                  style={{
-                    textAlign: "left",
-                    margin: "0px 0px 0px 7px",
-                    color: "#888",
-                    fontWeight: "500",
-                    fontSize: "15px",
-                  }}
-                >
-                  OneID 및 원티드 이용약관 동의 (필수)
-                </p>
-              </div>
-            </div>
-            <div class="check-agree" style={{ margin: "10px 0px" }}>
-              <div class="check-box"></div>
-              <input type="checkbox"></input>
-              <div style={{ display: "flex", flex: "1 1 0%" }}>
-                <p
-                  style={{
-                    textAlign: "left",
-                    margin: "0px 0px 0px 7px",
-                    color: "#888",
-                    fontWeight: "500",
-                    fontSize: "15px",
-                  }}
-                >
-                  OneID 및 개인정보 수집 및 이용 동의 (필수)
-                </p>
-              </div>
-            </div>
-            <div class="check-agree" style={{ margin: "10px 0px" }}>
-              <div class="check-box"></div>
-              <input type="checkbox"></input>
-              <div style={{ display: "flex", flex: "1 1 0%" }}>
-                <p
-                  style={{
-                    textAlign: "left",
-                    margin: "0px 0px 0px 7px",
-                    color: "#888",
-                    fontWeight: "500",
-                    fontSize: "15px",
-                  }}
-                >
-                  원티드 개인정보 수집 및 이용 동의 (필수)
-                </p>
-              </div>
-            </div>
-            <div class="check-agree" style={{ margin: "10px 0px" }}>
-              <div class="check-box"></div>
-              <input type="checkbox"></input>
-              <div style={{ display: "flex", flex: "1 1 0%" }}>
-                <p
-                  style={{
-                    textAlign: "left",
-                    margin: "0px 0px 0px 7px",
-                    color: "#888",
-                    fontWeight: "500",
-                    fontSize: "15px",
-                  }}
-                >
-                  채용 소식, 커리어 콘텐츠, 이벤트 등 원티드 맞춤 정보 받기
-                </p>
-              </div>
-            </div>
-            <div class="marketing-agree">
-              <label>
-                <span>이메일</span>
-              </label>
-              <label>
-                <span>앱 푸시</span>
-              </label>
-              <label>
-                <span>문자 메시지</span>
-              </label>
-            </div>
-          </CheckboxSection>
-          <button
-            class="submit-button"
-            type="submit"
-            onClick={handleNextClick}
-            style={{
-              backgroundColor:
-                nickName && phoneNum && pwd && pwdconfirm ? "#36f" : "#ddd",
-            }}
-          >
-            가입하기
-          </button>
+            >
+              가입하기
+            </button>
+          </form>
         </FormSection>
       </SignupBox>
     </Base>

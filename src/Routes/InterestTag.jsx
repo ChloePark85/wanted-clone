@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { userState } from "../recoil/user";
 
@@ -146,17 +146,18 @@ function InterestTag() {
   const [user, setUser] = useRecoilState(userState);
   const [interestIdx, setInterestIdx] = useRecoilState(userState);
   const [buttonColor, setButtonColor] = useState("f1f4f7");
+  const nickName = useRecoilValue(userState).nickName;
 
   const handleTagClick = (interestIdx) => {
     setInterestIdx(interestIdx);
     setButtonColor("#36f");
-    setUser({ ...user, interestIdx: interestIdx });
   };
   console.log(interestIdx);
   const handleSubmit = (e) => {
     e.preventDefault();
     setUser({
       ...user,
+      interestIdx: interestIdx,
       isLogin: true,
     });
     console.log(user);
@@ -192,7 +193,7 @@ function InterestTag() {
           <WrapperBodyContainer>
             <div className="title">
               <p>
-                000님의 커리어를 위한
+                {nickName}님의 커리어를 위한
                 <br />
                 콘텐츠를 추천해 드릴게요!
               </p>
@@ -212,6 +213,7 @@ function InterestTag() {
                       <span className="header-title">직장인 공감</span>
                     </div>
                   </li>
+
                   <ul style={{ marginBottom: "0" }}>
                     <li class="tag-button">
                       <button

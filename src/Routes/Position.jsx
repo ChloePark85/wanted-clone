@@ -158,6 +158,7 @@ const Footer = styled.div`
     display: flex;
     justify-content: center;
     color: #cacaca;
+    cursor: pointer;
   }
   .active {
     background-color: #36f;
@@ -192,6 +193,7 @@ function Position() {
       });
       navigate("/signup/interest");
     }
+    console.log(user);
   };
 
   useEffect(() => {
