@@ -168,18 +168,16 @@ function InterestTag() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    axios
+  const handleSubmit = async () => {
+    await axios
       .post("https://prod.seolki.shop/users", {
-        data: {
-          nickName,
-          email,
-          phoneNum,
-          pwd,
-          subGroup,
-          workYear,
-          interestIdx,
-        },
+        nickName: nickName,
+        email: email,
+        phoneNum: phoneNum,
+        pwd: pwd,
+        subGroup: subGroup,
+        workYear: workYear,
+        interestIdx: Number(interestIdx),
       })
       .then((response) => {
         console.log(response.data);
@@ -361,7 +359,9 @@ function InterestTag() {
                 </ul>
               </div>
             </div>
-            <StartButton onClick={handleSubmit}>원티드 시작하기</StartButton>
+            <StartButton type="submit" onClick={handleSubmit}>
+              원티드 시작하기
+            </StartButton>
           </WrapperBodyContainer>
         </WrapperBody>
       </InterestBoxWrapper>

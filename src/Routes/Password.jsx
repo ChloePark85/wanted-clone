@@ -172,21 +172,24 @@ function Password() {
     }
   };
   const navigate = useNavigate();
-  const onValid = (data) => {
+  const onValid = async (data) => {
     console.log(data);
     setUser({ ...user, pwd: data.password });
     // if (data.password && !errors.password) {
-    axios
-      .post("https://prod.seolki.shop/users/login", {
+    console.log("이메일", email);
+    console.log("패스워드", data.pwd);
+    await axios
+      .post("https://prod.seolki.shop/users/logIn", {
+        headers: {
+          "Content-Type": "application/json",
+        },
         email: email,
         pwd: data.pwd,
-        // body: {
-
-        // },
       })
+
       .then((response) => {
         console.log(response);
-        if (response.data.isSuccess) {
+        if (response.isSuccess) {
           setUser({ ...user, isLogin: true });
           navigate("/");
         } else {

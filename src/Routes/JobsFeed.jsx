@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import JobBanner from "../Components/JobBanner";
 import styled from "styled-components";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../recoil/user";
+import axios from "axios";
 
 const LineBanner = styled.div`
   margin: 60px auto;
@@ -329,7 +332,78 @@ const FloatingButton = styled.div`
   }
 `;
 
+const JobListContentWrapper = styled.div`
+  position: relative;
+  max-width: 1060px;
+  margin: 0 130px;
+  padding: 20px 0 80px;
+  .job-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    word-break: break-word;
+    column-gap: 20px;
+  }
+  .job-card-position {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-top: 10px;
+    position: relative;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+    max-height: 2.4em;
+    overflow: hidden;
+    text-align: left;
+    word-break: break-word;
+  }
+  .job-card-company {
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .job-card-location {
+    font-weight: 400;
+    color: #999;
+  }
+  .reward {
+    margin-top: 10px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    word-break: break-word;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+`;
+
 function JobsFeed() {
+  const userLoggedIn = useRecoilValue(userState).isLogin;
+
+  const [recommendedJobs, setRecommendedJobs] = useState([]);
+
+  useEffect(() => {
+    const getRecommendJobs = async () => {
+      const response = await fetch(
+        "https://prod.seolki.shop/recruit/recommend",
+        {
+          headers: {
+            "X-ACCESS-TOKEN":
+              "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4Ijo1LCJpYXQiOjE2NzI5MDQ5NzEsImV4cCI6MTY3NDM3NjIwMH0.Q5Q_YvesQ7LyxNkBrcFOSu1fIVOnIZG9aRxI3QiVYgA",
+          },
+        }
+      );
+      console.log(response);
+      setRecommendedJobs(response.data.result);
+    };
+    getRecommendJobs();
+  }, []);
+
   return (
     <>
       <Header />
@@ -351,45 +425,134 @@ function JobsFeed() {
           </div>
         </LineBanner>
       </Link>
-      <MatchedJobContainer>
-        <div class="matchedjob-header">
-          <div class="matchedjob-header-content">
-            <img
-              src="https://ifh.cc/g/07gmDc.png"
-              class="ai-logo"
-              alt="ai-logo"
-            />
-            <img
-              src="https://static.wanted.co.kr/images/ai/logo-wantedai.png"
-              class="ai-text-logo"
-              alt="ai-text-logo"
-            />
-          </div>
-          <h2 class="matchedjob-header-text">
-            <div class="matchedjob-header-text-detail">
-              <img
-                src="https://static.wanted.co.kr/images/ai/logo-wantedai.png"
-                style={{ width: "114px", marginBottom: "3px" }}
-                alt=""
-              />
-              <span>가 제안하는 합격률 높은 포지션</span>
-              <button type="button">
-                <AiOutlineQuestionCircle
-                  style={{ width: "24px", height: "24px", color: "grey" }}
-                />
+      {userLoggedIn ? (
+        <JobListContentWrapper>
+          <div class="company-list-container">
+            <div class="company-list-title">
+              <button type="button" class="arrow-button">
+                <svg
+                  viewBox="0 0 18 18"
+                  style={{
+                    width: "1em",
+                    height: "1em",
+                    display: "inline-block",
+                    fill: "currentColor",
+                    flexShrink: "0",
+                  }}
+                >
+                  <path d="m6.045 9 5.978-5.977a.563.563 0 1 0-.796-.796L4.852 8.602a.562.562 0 0 0 0 .796l6.375 6.375a.563.563 0 0 0 .796-.796L6.045 9z"></path>
+                </svg>
+              </button>
+              <div class="company-title">
+                <p
+                  style={{
+                    fontSize: "22px",
+                    lineHeight: "1.33",
+                    fontWeight: "700",
+                    color: "#333",
+                  }}
+                >
+                  Wanted AI가 제안하는 합격률 높은 포지션
+                </p>
+                <p
+                  style={{
+                    margin: "5px 0 0",
+                    fontSize: "13px",
+                    fontWeight: "500",
+                    lineHeight: "normal",
+                    verticalAlign: "middle",
+                    color: "#767676",
+                  }}
+                >
+                  포지션 전체보기
+                </p>
+              </div>
+              <button type="button" class="arrow-button">
+                <svg
+                  viewBox="0 0 18 18"
+                  style={{
+                    width: "1em",
+                    height: "1em",
+                    display: "inline-block",
+                    fill: "currentColor",
+                    flexShrink: "0",
+                  }}
+                >
+                  <path d="m11.955 9-5.978 5.977a.563.563 0 0 0 .796.796l6.375-6.375a.563.563 0 0 0 0-.796L6.773 2.227a.562.562 0 1 0-.796.796L11.955 9z"></path>
+                </svg>
               </button>
             </div>
-          </h2>
-        </div>
-        <div class="emptymatched-container">
-          <h3 class="emptymatched-text">회원가입하면 포지션을 추천해드려요.</h3>
-          <Link to="/login">
-            <button class="emptymatched-button" type="button">
-              지금 시작하기
-            </button>
-          </Link>
-        </div>
-      </MatchedJobContainer>
+            <div class="company-list">
+              <div className="body" class="job-card">
+                {recommendedJobs.map((job) => (
+                  <div key={job.jobIdx}>
+                    <div>
+                      <img
+                        src={job.jobImgUrl}
+                        alt={job.company}
+                        style={{
+                          width: "248px",
+                          height: "184px",
+                          borderRadius: "4px",
+                        }}
+                      />
+                    </div>
+                    <div style={{ padding: "14px 0", width: "214px" }}>
+                      <div className="job-card-position">{job.title}</div>
+                      <div className="job-card-company">{job.company}</div>
+                      <div className="job-card-location">{job.region}</div>
+                      <div className="reward">채용보상금 {job.money}원</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </JobListContentWrapper>
+      ) : (
+        <MatchedJobContainer>
+          <div class="matchedjob-header">
+            <div class="matchedjob-header-content">
+              <img
+                src="https://ifh.cc/g/07gmDc.png"
+                class="ai-logo"
+                alt="ai-logo"
+              />
+              <img
+                src="https://static.wanted.co.kr/images/ai/logo-wantedai.png"
+                class="ai-text-logo"
+                alt="ai-text-logo"
+              />
+            </div>
+            <h2 class="matchedjob-header-text">
+              <div class="matchedjob-header-text-detail">
+                <img
+                  src="https://static.wanted.co.kr/images/ai/logo-wantedai.png"
+                  style={{ width: "114px", marginBottom: "3px" }}
+                  alt=""
+                />
+                <span>가 제안하는 합격률 높은 포지션</span>
+                <button type="button">
+                  <AiOutlineQuestionCircle
+                    style={{ width: "24px", height: "24px", color: "grey" }}
+                  />
+                </button>
+              </div>
+            </h2>
+          </div>
+          <div class="emptymatched-container">
+            <h3 class="emptymatched-text">
+              회원가입하면 포지션을 추천해드려요.
+            </h3>
+            <Link to="/login">
+              <button class="emptymatched-button" type="button">
+                지금 시작하기
+              </button>
+            </Link>
+          </div>
+        </MatchedJobContainer>
+      )}
+
       <CareerConnectBanner>
         <picture class="banner-pic">
           <img
