@@ -172,24 +172,24 @@ function Password() {
     }
   };
   const navigate = useNavigate();
-  const onValid = async (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    setUser({ ...user, pwd: data.password });
+    setUser({ ...user, email: email, pwd: data.password });
     // if (data.password && !errors.password) {
     console.log("이메일", email);
     console.log("패스워드", data.pwd);
     await axios
       .post("https://prod.seolki.shop/users/logIn", {
-        headers: {
+        data: {
           "Content-Type": "application/json",
+          email: email,
+          pwd: data.pwd,
         },
-        email: email,
-        pwd: data.pwd,
       })
 
       .then((response) => {
         console.log(response);
-        if (response.isSuccess) {
+        if (response.data.isSuccess) {
           setUser({ ...user, isLogin: true });
           navigate("/");
         } else {
@@ -220,7 +220,7 @@ function Password() {
             <div class="label-container">
               <label>비밀번호</label>
             </div>
-            <form onSubmit={handleSubmit(onValid)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <input
                 {...register("pwd", {
                   required: true,
