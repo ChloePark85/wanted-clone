@@ -247,7 +247,7 @@ function Search({ isOpen }) {
         )}
         {searchResult === "result" && (
           <ResultSection>
-            {relatedKeyword.length > 0 && (
+            {relatedKeyword && (
               <ul>
                 {relatedKeyword.map((keyword, index) => (
                   <li key={index}>{keyword.title}</li>
