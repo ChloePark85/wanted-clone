@@ -106,7 +106,7 @@ function Community() {
         <aside className="community-post-aside">
           <div className="aside-area">
             <div className="community-profile">
-              <h2 className="title">커뮤니티</h2>
+              <h2 className="title">MY 커뮤니티</h2>
               <button className="profile-link">
                 <div className="use-avatar">
                   <img
@@ -121,10 +121,38 @@ function Community() {
               </button>
             </div>
             <div className="openprofile-banner"></div>
-            <div className="recommend-profile"></div>
+            <div className="recommend-profile">
+              <h3 className="recommend-profile-title">
+                업데이트된 추천 프로필
+              </h3>
+              <p className="recommend-profile-subtitle">
+                관심있는 프로필을 찾아보세요.
+              </p>
+              <div className="recommend-profile-rows"></div>
+              <div className="recommend-profile-actions"></div>
+            </div>
           </div>
         </aside>
-        <main className="community-post-content"></main>
+        <main className="community-post-content">
+          <div className="community-post-categories">
+            <div className="interest-category"></div>
+          </div>
+          <div className="community-post-content">
+            <section className="top-pick-post">
+              <div className="top-pick-post-header">
+                <div className="top-pick-post-header-title"></div>
+                <nav className="top-pick-post-view"></nav>
+              </div>
+              <div className="top-pick-post-list">
+                <article className="top-pick-post-item"></article>
+                <article className="top-pick-post-item"></article>
+                <article className="top-pick-post-item"></article>
+              </div>
+            </section>
+            <section className="post-write-button"></section>
+            <section className="recommended-post"></section>
+          </div>
+        </main>
       </CommunityPost>
     </>
   );
