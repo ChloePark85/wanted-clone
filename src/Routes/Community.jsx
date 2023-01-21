@@ -149,8 +149,17 @@ function Community() {
                 <article className="top-pick-post-item"></article>
               </div>
             </section>
-            <section className="post-write-button"></section>
-            <section className="recommended-post"></section>
+            <section className="post-write-button">
+              <button className="write-button">
+                커리어와 라이프스타일에 대해 자유롭게 이야기 해주세요!
+              </button>
+            </section>
+            <section className="recommended-post">
+              <div className="recommended-post-tags">
+                <h2>추천 커뮤니티글</h2>
+                <div className="recommended-post-tags-list"></div>
+              </div>
+            </section>
           </div>
         </main>
       </CommunityPost>
