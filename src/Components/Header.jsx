@@ -122,10 +122,12 @@ function Header() {
     setSideOpen((current) => !current);
   };
 
-  const [activeButton, setActiveButton] = useState(null);
-  const handleButtonClick = (button) => {
-    setActiveButton(button);
-  };
+  // const [activeButton, setActiveButton] = useState(null);
+  // const handleButtonClick = (button) => {
+  //   setActiveButton(button);
+  // };
+
+  const [activeIndex, setActiveIndex] = useState(0);
   return (
     <Base>
       <Navigation>
@@ -148,34 +150,69 @@ function Header() {
 
             <Menu>
               <Link to="/jobsfeed">
-                <MenuButton onClick={() => handleButtonClick("button1")}>
+                <MenuButton
+                  onClick={() => setActiveIndex(0)}
+                  style={{
+                    borderBottom: activeIndex === 0 ? "2px solid blue" : "",
+                  }}
+                >
                   채용
                 </MenuButton>
               </Link>
               <div>
                 <div className="menu-buttons">
-                  <MenuButton onClick={() => handleButtonClick("button2")}>
+                  <MenuButton
+                    onClick={() => setActiveIndex(1)}
+                    style={{
+                      borderBottom: activeIndex === 1 ? "2px solid blue" : "",
+                    }}
+                  >
                     이벤트
                   </MenuButton>
-                  <MenuButton onClick={() => handleButtonClick("button3")}>
+                  <MenuButton
+                    onClick={() => setActiveIndex(2)}
+                    style={{
+                      borderBottom: activeIndex === 2 ? "2px solid blue" : "",
+                    }}
+                  >
                     직군별 연봉
                   </MenuButton>
-                  <MenuButton onClick={() => handleButtonClick("button4")}>
+                  <MenuButton
+                    onClick={() => setActiveIndex(3)}
+                    style={{
+                      borderBottom: activeIndex === 3 ? "2px solid blue" : "",
+                    }}
+                  >
                     이력서
                   </MenuButton>
                   <Link to="/community">
-                    <MenuButton onClick={() => handleButtonClick("button5")}>
+                    <MenuButton
+                      onClick={() => setActiveIndex(4)}
+                      style={{
+                        borderBottom: activeIndex === 4 ? "2px solid blue" : "",
+                      }}
+                    >
                       커뮤니티
                     </MenuButton>
                   </Link>
-                  <MenuButton onClick={() => handleButtonClick("button6")}>
+                  <MenuButton
+                    onClick={() => setActiveIndex(5)}
+                    style={{
+                      borderBottom: activeIndex === 5 ? "2px solid blue" : "",
+                    }}
+                  >
                     프리랜서
                   </MenuButton>
-                  <MenuButton onClick={() => handleButtonClick("button7")}>
+                  <MenuButton
+                    onClick={() => setActiveIndex(6)}
+                    style={{
+                      borderBottom: activeIndex === 6 ? "2px solid blue" : "",
+                    }}
+                  >
                     AI 합격예측
                   </MenuButton>
                 </div>
-                {activeButton && <div className="blue-line" />}
+                {/* {activeButton && <div className="blue-line" />} */}
               </div>
             </Menu>
             <Menu>
